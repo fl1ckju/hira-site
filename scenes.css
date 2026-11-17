@@ -1,0 +1,51 @@
+/* =====================================================================
+   YENİ SAHNELER — Zaman Tüneli (ch47) · Hepsi Birden / hızlı kurgu (ch48) · Jenerik (ch7)
+   ===================================================================== */
+#ch47,#ch48{padding-left:.6rem;padding-right:.6rem}
+
+/* ---------- Zaman Tüneli: fotoğrafların arasından 3D uçuş ---------- */
+.tunnel{position:relative;height:min(68vh,560px);max-width:640px;margin:0 auto;overflow:hidden;border-radius:18px;perspective:720px;perspective-origin:50% 50%;background:radial-gradient(120% 90% at 50% 50%,#101c36,#060b16 70%);box-shadow:inset 0 0 0 1px #c9a96a22,0 30px 80px #0009;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.tscene{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.tpl{position:absolute;left:50%;top:50%;width:var(--w,110px);aspect-ratio:3/4;border-radius:5px;overflow:hidden;background:#14233f;box-shadow:0 0 0 1px #ffffff26,0 14px 40px #000a,0 0 30px #e0a45822;will-change:transform,opacity;backface-visibility:hidden;opacity:0}
+.tpl img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.tfog{position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(55% 50% at 50% 50%,#e0a45826,transparent 70%),radial-gradient(110% 100% at 50% 50%,transparent 52%,#04070dd0 100%)}
+/* hızlanınca merkezden açılan ışık çizgileri */
+.tunnel::after{content:"";position:absolute;inset:-25%;z-index:3;pointer-events:none;opacity:0;transition:opacity .5s;background:repeating-conic-gradient(from 0deg at 50% 50%,#ffe2a800 0 4deg,#ffe2a826 4.4deg 5deg,#ffe2a800 5.4deg 9deg);-webkit-mask-image:radial-gradient(circle,transparent 24%,#000 88%);mask-image:radial-gradient(circle,transparent 24%,#000 88%)}
+.tunnel.boost::after{opacity:.85}
+.tcount{position:absolute;left:0;right:0;bottom:.8rem;z-index:4;text-align:center;font-size:.72rem;letter-spacing:.4em;color:var(--gold);opacity:.85;font-variant-numeric:tabular-nums;pointer-events:none}
+
+/* ---------- Hepsi Birden: hızlanan, sonra duran kurgu ---------- */
+.kurgu{position:relative;width:min(100%,460px);aspect-ratio:3/4;max-height:70vh;margin:0 auto;border-radius:6px;overflow:hidden;background:#05080f;box-shadow:0 0 0 1px #c9a96a33,0 30px 80px #000a}
+.kl{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;transition:filter .9s}
+.kl.on{opacity:1;z-index:2;animation:kpunch .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes kpunch{from{transform:scale(1.14)}to{transform:scale(1)}}
+.kurgu.g1 .kl{filter:sepia(.55) contrast(1.06)}
+.kurgu.g2 .kl{filter:saturate(1.45) hue-rotate(-10deg)}
+.kurgu.g3 .kl{filter:grayscale(1) contrast(1.18)}
+.kurgu.fin .kl.on{filter:brightness(.55) saturate(.9)}
+.kflash{position:absolute;inset:0;z-index:3;background:#fff;opacity:0;pointer-events:none}
+.kflash.f{animation:kfl .22s ease-out}
+@keyframes kfl{from{opacity:.34}to{opacity:0}}
+.kurgu::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(120% 100% at 50% 50%,transparent 55%,#04070dbb 100%);box-shadow:inset 0 0 0 5px #05080f}
+.kcount{position:absolute;right:.8rem;bottom:.6rem;z-index:6;margin:0;font-size:.8rem;letter-spacing:.22em;color:#ffe2a8;text-shadow:0 0 10px #000;font-variant-numeric:tabular-nums;transition:opacity .8s}
+.kurgu.fin .kcount{opacity:0}
+.kfin{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;padding:1rem;text-align:center;opacity:0;transition:opacity 1.3s;background:radial-gradient(circle,#04070d80,#04070dd0)}
+.kurgu.fin .kfin{opacity:1}
+.kfin b{font-weight:400;font-style:italic;font-size:clamp(3.6rem,19vw,6.4rem);line-height:1;color:var(--ivory);text-shadow:0 0 40px #e0a45888;font-variant-numeric:tabular-nums}
+.kfin span{max-width:82%;letter-spacing:.3em;text-transform:uppercase;font-size:.76rem;line-height:1.7;color:var(--gold)}
+
+/* ---------- Jenerik ---------- */
+#ch7{max-width:none;margin:0;padding:0;height:100svh;overflow:hidden;background:radial-gradient(120% 90% at 50% 40%,#101c36,#04070d 80%)}
+.crwrap{position:absolute;inset:0;overflow:hidden;touch-action:none;-webkit-mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
+.crscroll{position:absolute;left:0;right:0;top:0;padding:100svh 1.4rem 60svh;text-align:center;will-change:transform}
+.crl{margin:0 0 3.2rem}
+.crl small{display:block;margin-bottom:.5rem;font-size:.68rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold)}
+.crl b{display:block;font-weight:400;font-style:italic;font-size:clamp(1.5rem,6.5vw,2.3rem);color:var(--ivory)}
+.crbig{margin:0 0 4rem;font-style:italic;font-size:clamp(2rem,9vw,3.4rem);line-height:1.15;color:var(--ivory);text-shadow:0 0 40px #e0a45855}
+.crp{width:min(62%,260px);margin:0 auto 3.4rem;padding:.55rem .55rem 1.8rem;background:var(--ivory);border-radius:3px;box-shadow:0 20px 50px #000a;rotate:var(--r,-3deg);translate:var(--tx,0) 0}
+.crp img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;filter:sepia(.12) contrast(1.04)}
+.crhint{position:absolute;left:0;right:0;bottom:1.2rem;z-index:3;margin:0;text-align:center;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.7;transition:opacity 1s;pointer-events:none}
+.crhint.off{opacity:0}
+.crend{position:absolute;left:50%;bottom:2.4rem;z-index:4;translate:-50% 0}
+.crend[hidden]{display:none}
+#tocr{margin-bottom:.8rem}
