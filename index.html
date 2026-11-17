@@ -9,8 +9,9 @@
 <meta name="robots" content="noindex,nofollow">
 <title>A Story Worth Remembering</title>
 <style>html,body{background:#0b1426;color:#f4ecdc}</style>
-<link rel="stylesheet" href="style.css?v=20">
-<link rel="stylesheet" href="extra.css?v=20">
+<link rel="stylesheet" href="style.css?v=21">
+<link rel="stylesheet" href="extra.css?v=21">
+<link rel="stylesheet" href="scenes.css?v=21">
 </head>
 <body class="locked">
 <div id="intro" role="status" aria-label="Açılış">
@@ -91,6 +92,22 @@
       <div class="table" id="table"></div>
       <button class="tap cont" id="to5m" type="button" hidden>Devam et →</button>
     </section>
+    <section id="ch47" hidden><h2 tabindex="-1">Zamanın İçinden</h2>
+      <p class="sub">Parmağınla yönlendir · basılı tut, hızlan.</p>
+      <div class="tunnel" id="tunnel" aria-label="Fotoğrafların arasından geçen tünel">
+        <div class="tscene" id="tscene"></div><div class="tfog" aria-hidden="true"></div><p class="tcount" id="tcount" aria-hidden="true"></p>
+      </div>
+      <button class="tap cont" id="to48" type="button" hidden>Devam et →</button>
+    </section>
+    <section id="ch48" hidden><h2 tabindex="-1">Hepsi Birden</h2>
+      <p class="sub">Bir yığın kare · hızlanıyor, sonra duruyor.</p>
+      <div class="kurgu" id="kurgu" aria-live="polite">
+        <div class="kl" id="kla"></div><div class="kl" id="klb"></div><div class="kflash" id="kflash" aria-hidden="true"></div>
+        <div class="kfin"><b id="kbig"></b><span id="ksm"></span></div><p class="kcount" id="kcount" aria-hidden="true">000</p>
+      </div>
+      <button class="tap" id="kgo" type="button" style="display:block;margin:1.4rem auto 0">Dokun · kareler başlasın</button>
+      <button class="tap cont" id="to5x" type="button" hidden>Devam et →</button>
+    </section>
     <section id="ch5"><h2>Hira İçin Bir Mektup</h2>
       <div class="envwrap" id="envwrap">
         <button id="envelope" class="env" type="button" aria-expanded="false" aria-label="Mektubu aç">
@@ -111,6 +128,11 @@
       <div id="wish" class="wish"></div>
       <div id="closing" class="closing"><p>— SON —</p><small>Sting · Shape of My Heart</small><button class="btn" type="button" id="again">Başa dön</button></div>
     </section>
+    <section id="ch7" hidden aria-label="Jenerik">
+      <div class="crwrap" id="crwrap"><div class="crscroll" id="crscroll"></div></div>
+      <p class="crhint" id="crhint">Basılı tut · hızlansın</p>
+      <button class="btn crend" id="crend" type="button" hidden>Başa dön</button>
+    </section>
   </div>
 </main>
 
@@ -124,16 +146,18 @@
 <audio id="bgm" loop preload="none" playsinline></audio>
 <div id="mframe" class="mframe" hidden></div>
 
-<script src="content.js?v=20"></script>
-<script src="fx.js?v=20"></script>
-<script src="cakea.js?v=20"></script>
-<script src="cakeb.js?v=20"></script>
-<script src="cakec.js?v=20"></script>
-<script src="app.js?v=20"></script>
-<script src="finale.js?v=20"></script>
-<script src="extra.js?v=20"></script>
+<script src="content.js?v=21"></script>
+<script src="fx.js?v=21"></script>
+<script src="cakea.js?v=21"></script>
+<script src="cakeb.js?v=21"></script>
+<script src="cakec.js?v=21"></script>
+<script src="app.js?v=21"></script>
+<script src="finale.js?v=21"></script>
+<script src="extra.js?v=21"></script>
+<script src="photolist.js?v=21" onerror="void 0"></script>
+<script src="scenes.js?v=21"></script>
 <script>/* Eksik ya da yarım kalmış dosya varsa açılış ekranında hangisi olduğunu yazar */
-setTimeout(function(){var ok=window.__ok||[],miss=["cakea","cakeb","cakec","app","finale","extra"].filter(function(n){return ok.indexOf(n)<0});
+setTimeout(function(){var ok=window.__ok||[],miss=["cakea","cakeb","cakec","app","finale","extra","scenes"].filter(function(n){return ok.indexOf(n)<0});
 if(miss.length){var h=document.getElementById("hint");h.hidden=false;h.textContent="Eksik ya da yarım dosya: "+miss.join(".js, ")+".js";if(window.__errs&&window.__errs.length)h.textContent+="  ["+window.__errs[0]+"]";}},2500);</script>
 </body>
 </html>
