@@ -1,0 +1,196 @@
+/* ---------- Bölüm 04: Yıldızlı uzayda süzülen cam anılar ----------
+   Her dokunuşta bir kare uyanır, mesajını söyler ve serbest, organik bir kümeye bırakılır.
+   Bırakılan kareler dokundukça birbirine yaklaşır (kümelenir); aralarında canlı, kıvrımlı ışık iplikleri gerilir.
+   Son dokunuşta hepsi ortada bir yelpazede birleşir. ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+const glass = $('#glass'), glines = $('#glines'), note = $('#note'),
+      c4c = $('#c4count'), c4n = $('#c4next'), to5 = $('#to5'), N = C.messages.length;
+let nodes = [], lines = [], k4 = -1, kurulu = false, c4raf = 0;
+
+/* Derin uzay: üç katman yıldız (yakın olan büyük ve hızlı, uzak olan küçük ve ağır paralaks yapar) */
+for (let i = 0; i < 64; i++) {
+  const s = make('i'), dz = i % 3; /* 0 uzak · 1 orta · 2 yakın */
+  s.style.cssText = `left:${(Math.random() * 100).toFixed(1)}%;top:${(Math.random() * 100).toFixed(1)}%;--d:${(Math.random() * 4).toFixed(1)}s;--s:${(0.8 + dz * 0.8 + Math.random() * 1.2).toFixed(1)}px;--k:${(0.3 + dz * 0.45).toFixed(2)}`;
+  $('#twinkles').append(s);
+}
+/* Bölüm görünür olunca bir kez kurulur */
+function kur4() {
+  if (kurulu) return; kurulu = true;
+  const kaynak = C.glassPhotos && C.glassPhotos.length ? C.glassPhotos : C.gallery, mid = (N - 1) / 2, GA = 2.399963; /* altın açı: düzenli bir halka değil, serbest bir saçılım */
+  nodes = C.messages.map((m, k) => {
+    const a = k * GA + 0.7, rr = 19 + 17 * ((k * 0.618 + 0.13) % 1);
+    const x = Math.min(86, Math.max(14, 50 + rr * 1.18 * Math.cos(a))), y = Math.min(72, Math.max(15, 42 + rr * 0.92 * Math.sin(a))), off = k - mid;
+    const it = kaynak[k % kaynak.length], el = make('div', 'gn'), gi = make('span', 'gi');
+    const sz = 0.86 + ((k * 37) % 10) / 24; /* her karenin boyu biraz farklı */
+    el.style.cssText = `--x:${x.toFixed(1)}%;--y:${y.toFixed(1)}%;--i:${k};--s:${sz.toFixed(2)};--rot:${((k % 2 ? 1 : -1) * (4 + k * 2.3)).toFixed(1)}deg;--d:${(0.5 + (k % 3) * 0.4).toFixed(1)};--t:${6 + k * 1.3}s;--dl:-${(k * 1.7).toFixed(1)}s;--fx:${(off * 42).toFixed(0)}px;--fr:${(off * 7).toFixed(1)}deg;--fz:${10 - Math.round(Math.abs(off) * 2)};--fy:${(off * off * 7).toFixed(0)}px`;
+    const im = photo(it, pad(k)); im.loading = 'eager';
+    if (/\.png(\?|$)/i.test(it.src)) el.classList.add('cut'); /* şeffaf PNG: kesim gibi süzülür */
+    gi.append(im); el.append(gi); glass.append(el);
+    setTimeout(() => el.classList.add('in'), reduced ? 0 : 300 + k * 160);
+    return { el, x, y, fx: off * 42 };
+  });
+  lines = []; /* iplik k: k → k+1 (kapanan halka yok); kıvrımı her karede canlı hesaplanır */
+  for (let k = 0; k < N - 1; k++) {
+    const l = document.createElementNS(NS, 'path'); l.setAttribute('pathLength', '1'); glines.append(l); lines.push(l);
+  }
+  c4raf = requestAnimationFrame(iplik);
+}
+/* İplikler: karelerin o anki (süzülen) konumlarını izler, ince bir dalgayla kıvrılır */
+function iplik(ts) {
+  if (!kurulu) return;
+  c4raf = requestAnimationFrame(iplik);
+  if (b4.hidden || document.hidden || glass.classList.contains('done')) return;
+  const gr = glass.getBoundingClientRect(); if (!gr.width) return;
+  const pos = nodes.map(n => { const r = n.el.getBoundingClientRect(); return [(r.left + r.width / 2 - gr.left) / gr.width * 100, (r.top + r.height / 2 - gr.top) / gr.height * 100]; });
+  const t = ts / 1000;
+  lines.forEach((l, k) => {
+    if (!l.classList.contains('on')) return;
+    const [x1, y1] = pos[k], [x2, y2] = pos[k + 1], mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, w = 6 * Math.sin(t * 0.9 + k * 1.7);
+    l.setAttribute('d', `M${x1.toFixed(1)} ${y1.toFixed(1)}Q${(mx - dy * 0.22 + w).toFixed(1)} ${(my + dx * 0.22 + w * 0.6).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
+  });
+}
+/* Bırakılan kareler her dokunuşta merkeze biraz daha yaklaşır: dağınık uzay yavaşça bir kümeye dönüşür */
+function topla() {
+  const f = Math.max(0.5, 1 - 0.07 * Math.max(0, k4));
+  nodes.forEach((n, i) => {
+    if (i >= k4) return; /* yalnızca bırakılmış olanlar */
+    n.el.style.setProperty('--x', (50 + (n.x - 50) * f).toFixed(1) + '%');
+    n.el.style.setProperty('--y', (42 + (n.y - 42) * f).toFixed(1) + '%');
+  });
+}
+/* Bırakılan karenin yerinde yayılan ince bir şok halkası */
+function halka4(k) {
+  if (reduced) return;
+  const n = nodes[k], r = make('i', 'gring'); r.style.left = n.el.style.getPropertyValue('--x') || (n.x + '%'); r.style.top = n.el.style.getPropertyValue('--y') || (n.y + '%');
+  glass.append(r); setTimeout(() => r.remove(), 1400);
+}
+const yerles = k => {
+  nodes[k].el.classList.remove('awake'); nodes[k].el.classList.add('lit'); if (k > 0) lines[k - 1].classList.add('on');
+  topla(); halka4(k);
+  const r = nodes[k].el.getBoundingClientRect(); if (!reduced && FX.spark) FX.spark(r.left + r.width / 2, r.top + r.height / 2);
+};
+let son4 = 0;
+function adim() {
+  if (!kurulu || k4 >= N) return;
+  const nw = Date.now(); if (nw - son4 < 650) return; son4 = nw; /* nefes payı 0,9 → 0,65 sn */
+  k4++; vib(k4 >= N ? [18, 50, 30, 50, 40] : 14);
+  note.classList.remove('on'); void note.offsetWidth;
+  const gr = glass.getBoundingClientRect(), cx = gr.left + gr.width / 2, cy = gr.top + gr.height * .42;
+  if (k4 > 0) yerles(k4 - 1); /* önceki kare kümedeki yerine bırakılır */
+  isik(cx, cy, '#e0a458');
+  if (k4 < N) {
+    const m = C.messages[k4];
+    nodes[k4].el.classList.add('awake');
+    if (!reduced && FX.spark) FX.spark(cx, cy);
+    note.replaceChildren(make('p', 'n1', m.text), make('p', 'n2', m.more)); note.classList.add('on');
+    c4c.textContent = pad(k4) + ' / ' + pad(N - 1);
+    c4n.textContent = k4 === N - 1 ? 'Dokun · kareler birleşsin' : 'Dokun · sonraki kare';
+  } else { /* son dokunuş: kareler ortada bir yelpazede birleşir */
+    note.replaceChildren(); c4c.textContent = ''; c4n.hidden = true;
+    glines.classList.add('fade');
+    setTimeout(() => {
+      nodes.forEach(n => { n.el.style.removeProperty('--x'); n.el.style.removeProperty('--y'); n.el.classList.remove('lit'); n.el.classList.add('final'); });
+      glass.classList.add('done'); vib([30, 80, 40]);
+      if (!reduced) FX.burst(cx, cy);
+      c4c.textContent = 'Kareler üzerinde gez'; /* ipucu */
+      setTimeout(() => nodes.forEach(n => n.el.classList.add('settled')), reduced ? 0 : 1300); /* yerleşince hover hızlı çalışır */
+    }, reduced ? 0 : 800);
+    goster(to5, reduced ? 800 : 1900); /* eskiden 2,8 sn */
+  }
+}
+
+/* Birleşen kartlar: imleç ya da parmak üzerinde gezdikçe en yakın kart yükselir, büyür ve kendi mesajını geri getirir */
+let popK = -1;
+function pop(k) {
+  if (k === popK) return; popK = k;
+  nodes.forEach((n, i) => n.el.classList.toggle('pop', i === k));
+  if (k < 0) return;
+  const m = C.messages[k]; vib(6);
+  note.classList.remove('on'); void note.offsetWidth;
+  note.replaceChildren(make('p', 'n1', m.text), make('p', 'n2', m.more)); note.classList.add('on');
+  const r = nodes[k].el.getBoundingClientRect(); isik(r.left + r.width / 2, r.top, '#ffd27a');
+}
+function gez(e) {
+  if (!glass.classList.contains('done') || !nodes.some(n => n.el.classList.contains('settled'))) return;
+  const gr = glass.getBoundingClientRect(), cx = gr.left + gr.width / 2, cy = gr.top + gr.height * .42;
+  if (Math.abs(e.clientY - cy) > 170) return pop(-1); /* kart bandının dışında: indir */
+  let b = 0, bd = 1e9; nodes.forEach((n, i) => { const d = Math.abs(e.clientX - (cx + n.fx)); if (d < bd) { bd = d; b = i; } });
+  pop(b);
+}
+glass.addEventListener('pointermove', gez); glass.addEventListener('pointerdown', gez);
+glass.addEventListener('pointerleave', () => { if (glass.classList.contains('done')) pop(-1); });
+b4.addEventListener('click', e => { if (!e.target.closest('#to5')) adim(); });
+
+/* ---------- Bölüm 04 → 04.5 (film makarası) ---------- */
+to5.onclick = () => { to5.disabled = true; sahne([b4], [b45], $('#ch45 h2'), kurMakara, IT.c45); };
+
+/* ---------- Sahne A: iki yönlü, sonsuz 35 mm film şeridi. Basılı tutunca makara durur ---------- */
+const FOTO_MAX = 40; /* şerit başına en fazla bu kadar kare çizilir: yüzlerce fotoğraf olsa da telefon yorulmasın */
+const pj = $('#projector'), to46 = $('#to46');
+let makaraKuruldu = false;
+function kurMakara() {
+  if (makaraKuruldu) return; makaraKuruldu = true;
+  const havuz = (C.reel && C.reel.length ? C.reel : C.gallery);
+  const sira1 = havuz.slice(0, FOTO_MAX), sira2 = havuz.slice().reverse().slice(0, FOTO_MAX);
+  [['#film1', sira1], ['#film2', sira2]].forEach(([sel, liste]) => {
+    const el = $(sel);
+    for (let k = 0; k < 2; k++) { /* iki kopya: -%50 kaydırınca kesintisiz döngü */
+      liste.forEach((it, i) => { const c = make('figure', 'cell'); c.append(photo(it, pad(i)), make('span', 'fn', pad(i))); el.append(c); });
+    }
+    el.style.setProperty('--dur', (liste.length * 2.2) + 's'); /* şerit daha hızlı akar (eskiden 3.2 sn/kare) */
+  });
+  goster(to46, reduced ? 800 : 2400);
+}
+const tut = on => { pj.classList.toggle('hold', on); if (on) vib(8); $('#rhint').classList.add('off'); };
+pj.addEventListener('pointerdown', () => tut(true));
+['pointerup', 'pointercancel', 'pointerleave'].forEach(n => pj.addEventListener(n, () => tut(false)));
+pj.addEventListener('contextmenu', e => e.preventDefault());
+to46.onclick = () => { to46.disabled = true; sahne([b45], [b46], $('#ch46 h2'), kurMontaj, IT.c46); };
+
+/* ---------- Sahne B: karanlık oda masası — kareler süzülür, dokununca yakından bakılır ---------- */
+const tbl = $('#table'), pins = $('#pins'), pinImg = $('#pinimg'), pinCap = $('#pincap'), to5m = $('#to5m');
+const slots = []; let montajKuruldu = false;
+function sec(haric) { /* havuzdan rastgele bir kare; ekrandakilerle aynı olmasın */
+  const havuz = C.montage && C.montage.length ? C.montage : C.gallery, kul = new Set(haric.map(x => x.src));
+  const adaylar = havuz.filter(p => !kul.has(p.src)), l = adaylar.length ? adaylar : havuz;
+  return l[Math.floor(Math.random() * l.length)];
+}
+function incele(s, e) {
+  pinImg.src = s.im.src; pinCap.textContent = s.it.caption || ''; pins.hidden = false;
+  requestAnimationFrame(() => pins.classList.add('on'));
+  isik(e.clientX, e.clientY, '#ffd27a'); kalp(); document.body.style.overflow = 'hidden';
+}
+pins.onclick = () => { pins.classList.remove('on'); setTimeout(() => { pins.hidden = true; document.body.style.overflow = ''; }, 700); };
+function kurMontaj() {
+  if (montajKuruldu) return; montajKuruldu = true;
+  const cols = innerWidth < 600 ? 3 : 4, rows = cols === 3 ? 4 : 3, n = cols * rows;
+  tbl.style.setProperty('--c', cols);
+  for (let i = 0; i < n; i++) {
+    const z = 0.3 + Math.random() * 0.7, L = (i % cols) / cols * 100 + 1 + Math.random() * 6, T = Math.floor(i / cols) / rows * 100 + Math.random() * 6;
+    const d = make('button', 'fp'); d.type = 'button'; d.setAttribute('aria-label', 'Kareye yakından bak');
+    d.style.cssText = `left:${L.toFixed(1)}%;top:${T.toFixed(1)}%;--i:${i};--z:${z.toFixed(2)};--r:${((Math.random() - .5) * 14).toFixed(1)}deg;--bx:${((Math.random() - .5) * 14).toFixed(0)}px;--by:${((Math.random() - .5) * 18).toFixed(0)}px;--t:${(4.2 + Math.random() * 3.6).toFixed(1)}s;--dl:-${(Math.random() * 8).toFixed(1)}s;z-index:${Math.round(z * 10)}`;
+    const it = sec(slots.map(x => x.it)), im = photo(it, pad(i)), fi = make('span', 'fpi'); im.loading = 'eager';
+    fi.append(im); d.append(fi);
+    const slot = { el: d, it, im, no: i }; slots.push(slot);
+    d.onclick = e => incele(slot, e);
+    tbl.append(d);
+  }
+  setInterval(() => { /* havuz büyükse masadaki kareler arada yenilenir */
+    if (b46.hidden || document.hidden || pins.classList.contains('on')) return;
+    const s = slots[Math.floor(Math.random() * slots.length)], it = sec(slots.map(x => x.it));
+    if (!s || it.src === s.it.src) return;
+    s.el.classList.add('swap');
+    setTimeout(() => { s.it = it; s.im.onerror = () => { s.im.onerror = null; s.im.src = placeholder(pad(s.no)); }; s.im.src = it.src; s.el.classList.remove('swap'); }, 560);
+  }, 1800);
+  goster(to5m, reduced ? 800 : 2300);
+}
+to5m.onclick = () => { to5m.disabled = true; sahne([b46], [b5], $('#envelope'), null, IT.c5); };
+
+/* Dokunulan yere altın halka */
+['#ch2', '#ch4', '#ch46'].forEach(id => $(id).addEventListener('pointerdown', halka));
+} catch (err) { console.error('Bölüm geçişleri kurulamadı:', err); }
+
+/* Bölüm 05–06 finale.js içinde: ortak yardımcılar oraya buradan verilir */
+window.__app = { C, FX, $, make, pad, vib, kalp, isik, reduced, photo, watch };
+(window.__ok = window.__ok || []).push('app');
+})();

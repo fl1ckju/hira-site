@@ -1,0 +1,65 @@
+/* ---------- Sahne geçişi: sinematik şeritler kapanır, bölümler değişir ---------- */
+function sahne(gizle, goster, odak, sonra, yazi) {
+  perde(yazi, () => {
+    gizle.forEach(e => { e.hidden = true; });
+    goster.forEach(e => { e.hidden = false; });
+    scrollTo({ top: 0, behavior: 'instant' });
+    if (sonra) sonra();
+    if (odak) odak.focus({ preventScroll: true });
+  });
+}
+window.__sahne = sahne;
+const b4 = $('#ch4'), b45 = $('#ch45'), b46 = $('#ch46'), b5 = $('#ch5'), b6 = $('#ch6');
+[b4, b45, b46, b5, b6].forEach(e => { e.hidden = true; }); /* sırayla "Devam et" ile açılırlar */
+
+/* ---------- Bölüm 03: kaydırdıkça kartlar sağa-sola süzülür ---------- */
+const pols = [...document.querySelectorAll('#gallery .pol')];
+let rafP = 0;
+function kaydir() {
+  rafP = 0; if (reduced) return;
+  const vh = innerHeight;
+  pols.forEach((el, i) => {
+    const r = el.getBoundingClientRect();
+    if (r.bottom < -100 || r.top > vh + 100) return;
+    const p = (r.top + r.height / 2 - vh / 2) / vh; /* yaklaşık -1 … 1 */
+    el.style.setProperty('--px', ((i % 2 ? -1 : 1) * p * 40).toFixed(1) + 'px');
+  });
+}
+addEventListener('scroll', () => { if (!rafP) rafP = requestAnimationFrame(kaydir); }, { passive: true });
+kaydir();
+
+/* ---------- Bölüm 03: ekrana basılı tutunca sayfa yavaşça kendiliğinden aşağı akar ---------- */
+const ch3 = $('#ch3'), holdHint = $('#holdhint'), HIZ = 215; /* px/sn (eskiden 165) */
+let basili = false, bekle = 0, akRaf = 0, akSon = 0, akY = 0, bx = 0, by = 0, bitis = 0;
+function akis(ts) {
+  if (!basili) { akRaf = 0; return; }
+  const dt = Math.min(ts - akSon, 50) / 1000; akSon = ts; akY += HIZ * dt;
+  scrollTo({ top: akY, left: 0, behavior: 'instant' });
+  akRaf = requestAnimationFrame(akis);
+}
+function tutBaslat() {
+  bekle = 0; basili = true; akY = scrollY; akSon = performance.now(); vib(10);
+  holdHint.classList.add('off'); akRaf = requestAnimationFrame(akis);
+}
+function tutBirak() {
+  clearTimeout(bekle); bekle = 0;
+  if (basili) { basili = false; bitis = Date.now(); }
+}
+ch3.addEventListener('pointerdown', e => {
+  if (e.target.closest('#to4') || (e.pointerType === 'mouse' && e.button !== 0)) return;
+  bx = e.clientX; by = e.clientY; clearTimeout(bekle); bekle = setTimeout(tutBaslat, 200);
+});
+ch3.addEventListener('pointermove', e => { /* parmak kayıyorsa kullanıcı kendisi kaydırıyordur */
+  if (!basili && bekle && Math.hypot(e.clientX - bx, e.clientY - by) > 12) tutBirak();
+});
+['pointerup', 'pointercancel'].forEach(n => addEventListener(n, tutBirak));
+addEventListener('blur', tutBirak);
+ch3.addEventListener('contextmenu', e => e.preventDefault()); /* uzun basınca menü çıkmasın */
+ch3.addEventListener('click', e => { /* basılı tutup bırakınca fotoğraf yanlışlıkla açılmasın */
+  if (Date.now() - bitis < 450) { e.stopPropagation(); e.preventDefault(); }
+}, true);
+
+/* ---------- Bölüm 03 → 04 ---------- */
+const to4 = $('#to4');
+to4.onclick = () => { to4.disabled = true; tutBirak(); sahne([$('#ch2'), $('#ch3')], [b4], $('#ch4 h2'), kur4, IT.c4); };
+

@@ -1,0 +1,353 @@
+/* ===== Ek süslemeler (extra.js ile birlikte) ===== */
+/* açılış: duvara bantlanmış fotoğraflar, saat ilerledikçe alttan yükselir */
+#intro>.clock,#intro>.introtxt,#intro>.introhint{position:relative;z-index:2}
+.tapes{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.tp{position:absolute;bottom:0;width:min(var(--w),230px);padding:5px 5px 20px;background:#f3ead7;box-shadow:0 8px 22px #000a;transform-origin:50% 100%;transform:translateY(calc((1 - var(--r,.1)) * 100%)) rotate(var(--rot,0deg));transition:transform 1.3s cubic-bezier(.22,1,.36,1)}
+.tp img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;filter:saturate(.92) brightness(.95);background:linear-gradient(160deg,#243a63,#14233f)}
+.tp::before{content:"";position:absolute;left:50%;top:-11px;width:42%;height:22px;margin-left:-21%;background:#f1e4c3aa;box-shadow:0 1px 3px #0005;transform:rotate(var(--tape,-3deg))}
+#intro.out .tp{transition-duration:1.4s}
+
+/* final: daha büyük pasta, flama, balonlar, parıltılar */
+#ch6{position:relative}
+.stage{width:100vw;max-width:640px;margin:0 0 1.2rem 50%;transform:translateX(-50%);z-index:1}
+.deco{position:absolute;left:0;top:0;width:100%;height:100svh;overflow:hidden;pointer-events:none;z-index:0}
+.flags{position:absolute;left:0;top:0;width:100%;height:84px;transform-origin:50% 0;animation:sway 6s ease-in-out infinite alternate}
+.flags+.flags{top:30px;opacity:.7;animation-delay:-2s}
+@keyframes sway{to{transform:rotate(.7deg) translateY(2px)}}
+.bl{position:absolute;bottom:-18%;left:var(--x);width:var(--s);height:calc(var(--s) * 1.22);border-radius:50% 50% 48% 48%;background:radial-gradient(circle at 32% 28%,#fff9,#fff0 28%),var(--c);opacity:.5;animation:rise var(--t) linear var(--d) infinite;animation-play-state:paused}
+.bl::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:70px;background:#cdbfa588}
+.deco.on .bl{animation-play-state:running}
+@keyframes rise{from{transform:translate(0,0)}25%{transform:translate(10px,-30vh)}50%{transform:translate(-8px,-60vh)}75%{transform:translate(8px,-90vh)}to{transform:translate(0,-125vh)}}
+.sp{position:absolute;color:var(--gold);font-size:.95rem;opacity:0;animation:twk2 3s ease-in-out infinite;pointer-events:none}
+@keyframes twk2{50%{opacity:.9;transform:scale(1.35)}}
+
+/* ===== Tur 4: sinematik derinlik ===== */
+/* pasta: daha büyük, mum yanarken nefes alan ışık */
+#ch6{padding-top:clamp(2rem,8vh,4rem)}
+.stage{max-width:820px}
+.stage::before{inset:-6% -8% 0;background:radial-gradient(54% 52% at 50% 58%,#ffb45899,#e0a45855 42%,transparent 74%)}
+.stage.lit::before{opacity:1;animation:cakebreath 5.5s ease-in-out infinite}
+@keyframes cakebreath{0%,100%{transform:scale(.94);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+#cakeGlow{filter:blur(14px) brightness(1.9) saturate(1.35);opacity:.55;transition:opacity 2s}
+.stage.lit #cakeGlow{opacity:.9;animation:glowpulse 5.5s ease-in-out infinite}
+@keyframes glowpulse{0%,100%{transform:scale(1);opacity:.65}50%{transform:scale(1.035);opacity:1}}
+.stage.lit #cakeCv{animation:cakebreathe 5.5s ease-in-out infinite}
+@keyframes cakebreathe{50%{transform:scale(1.012)}}
+/* mum yanınca kenarlar kararır, bakış pastaya iner */
+.vignette::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity 3s;background:radial-gradient(75% 62% at 50% 56%,transparent 32%,#02050bdd 100%)}
+body.cakelit .vignette::after{opacity:1}
+
+/* sahne arası yazısı (perde kapanınca görünür) */
+.bcard{position:fixed;inset:0;z-index:121;display:grid;place-items:center;padding:2rem;margin:0;text-align:center;pointer-events:none;opacity:0;font:italic 400 clamp(1.3rem,5.5vw,2rem)/1.4 var(--serif);letter-spacing:.14em;color:var(--gold);text-shadow:0 0 30px #e0a45866}
+.bars.go .bcard{animation:bcard 2.8s ease-in-out both}
+@keyframes bcard{0%,32%{opacity:0;transform:translateY(8px);filter:blur(6px)}48%,60%{opacity:1;transform:none;filter:none}72%,100%{opacity:0;transform:translateY(-6px);filter:blur(4px)}}
+
+/* daha organik ışık sızıntıları */
+.leak{transition:filter 1.4s}
+body.sahnede .leak{filter:brightness(1.9) saturate(1.3)}
+.leak::before,.leak::after{content:"";position:absolute;inset:0;pointer-events:none}
+.leak::before{background:radial-gradient(28% 40% at 85% 12%,#ffb86a44,transparent 70%),radial-gradient(22% 30% at 6% 88%,#e08a7a33,transparent 70%);animation:leak2 19s ease-in-out infinite alternate}
+.leak::after{background:linear-gradient(115deg,transparent 30%,#ffd9a022 45%,#ffb86a33 50%,transparent 62%);animation:leak3 23s ease-in-out infinite}
+@keyframes leak2{0%{transform:translate(3%,2%) scale(1.1);opacity:.2}50%{opacity:.8}100%{transform:translate(-6%,-3%) scale(.95);opacity:.35}}
+@keyframes leak3{0%{transform:translateX(-45%);opacity:0}30%,70%{opacity:.8}100%{transform:translateX(45%);opacity:0}}
+/* dokunulan yerde sızan ışık ve altın halka */
+.lp{position:fixed;width:70vmax;height:70vmax;translate:-50% -50%;pointer-events:none;z-index:103;mix-blend-mode:screen;background:radial-gradient(circle,var(--c,#ffb86a) 0,transparent 55%);opacity:0;animation:lp 2.2s ease-out forwards}
+@keyframes lp{0%{opacity:0;scale:.5}25%{opacity:.3}100%{opacity:0;scale:1.1}}
+.halka{position:fixed;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;border:1px solid #e0a458cc;box-shadow:0 0 14px #e0a45888;pointer-events:none;z-index:104;animation:halka 1.1s ease-out forwards}
+@keyframes halka{from{transform:scale(1);opacity:.9}to{transform:scale(11);opacity:0}}
+
+/* ===== Tur 5: çok katmanlı perde ===== */
+.bars i:first-of-type{background:linear-gradient(180deg,#02040a,#0b1224)}
+.bars i:last-of-type{background:linear-gradient(0deg,#02040a,#0b1224)}
+/* şeridin iç kenarında altın kenar ışığı: yalnızca perde hareket ederken görünür */
+.bars i::after{content:"";position:absolute;left:0;right:0;height:2px;opacity:0;background:linear-gradient(90deg,transparent,#e0a458,#ffe2a8,#e0a458,transparent);box-shadow:0 0 18px 3px #e0a45888}
+.bars i:first-of-type::after{bottom:-1px}.bars i:last-of-type::after{top:-1px}
+.bars.go i::after{animation:trim 2.8s ease-in-out}
+@keyframes trim{0%,18%,82%,100%{opacity:0}35%,65%{opacity:1}}
+/* diyafram (iris): kenarlardan merkeze kapanır */
+@property --ir{syntax:'<percentage>';inherits:false;initial-value:150%}
+.bars .iris{position:fixed;inset:0;z-index:119;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,transparent var(--ir),#04070dee calc(var(--ir) + 14%))}
+.bars.go .iris{animation:iris 2.8s cubic-bezier(.65,0,.35,1)}
+@keyframes iris{0%{--ir:150%;opacity:1}35%,65%{--ir:0%;opacity:1}100%{--ir:150%;opacity:1}}
+/* film yanığı: perde tam kapanırken sıcak bir parlama */
+.bars .burn{position:fixed;inset:0;z-index:122;pointer-events:none;opacity:0;mix-blend-mode:screen;background:radial-gradient(70% 55% at 50% 50%,#ffcf8a,#e0a458aa 35%,transparent 70%)}
+.bars.go .burn{animation:burn 2.8s ease-in-out}
+@keyframes burn{0%,36%{opacity:0}46%{opacity:.75}58%{opacity:.15}64%{opacity:.5}78%,100%{opacity:0}}
+.bcard{z-index:123}
+
+/* ===== Çerçeve süsleri: vizör köşeleri, film ölçü çizgileri, bokeh ===== */
+.vf{position:fixed;inset:0;z-index:104;pointer-events:none;opacity:0;transition:opacity 3s 1s}
+body.ready .vf{opacity:1}
+.vf i{position:absolute;width:26px;height:26px;border:1px solid #c9a96a99}
+.vf .tl{top:calc(14px + env(safe-area-inset-top));left:14px;border-right:0;border-bottom:0}
+.vf .tr{top:calc(14px + env(safe-area-inset-top));right:14px;border-left:0;border-bottom:0}
+.vf .bl{bottom:calc(14px + env(safe-area-inset-bottom));left:14px;border-right:0;border-top:0}
+.vf .br{bottom:calc(14px + env(safe-area-inset-bottom));right:14px;border-left:0;border-top:0}
+.vf .tk{position:absolute;top:20%;bottom:20%;width:6px;background:repeating-linear-gradient(180deg,#c9a96a66 0 1px,transparent 1px 14px);-webkit-mask-image:linear-gradient(180deg,transparent,#000 25%,#000 75%,transparent);mask-image:linear-gradient(180deg,transparent,#000 25%,#000 75%,transparent)}
+.vf .tk.l{left:7px}.vf .tk.r{right:7px}
+.vf .xh{position:absolute;left:50%;width:13px;height:13px;margin-left:-6px;opacity:.7}
+.vf .xh::before,.vf .xh::after{content:"";position:absolute;background:#c9a96a}
+.vf .xh::before{left:6px;top:0;width:1px;height:13px}.vf .xh::after{top:6px;left:0;height:1px;width:13px}
+.vf .xh.t{top:calc(16px + env(safe-area-inset-top))}.vf .xh.b{bottom:calc(16px + env(safe-area-inset-bottom))}
+.bokeh{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.bokeh i{position:absolute;width:var(--s);height:var(--s);border-radius:50%;background:radial-gradient(circle,#e0a45833,#e0a45811 60%,transparent 72%);filter:blur(2px);opacity:.7;transform:translate(calc(var(--px,0) * var(--k) * -26px),calc(var(--sy,0) * var(--k) * -.1px + var(--py,0) * var(--k) * -26px));transition:transform 1.2s cubic-bezier(.22,1,.36,1);animation:bk var(--t) ease-in-out var(--d) infinite alternate}
+@keyframes bk{from{translate:0 0;opacity:.25}to{translate:16px -26px;opacity:.75}}
+
+/* ===== Daha akıcı genel hareket ===== */
+.reveal{transition:opacity 1.05s cubic-bezier(.22,1,.36,1),transform 1.05s cubic-bezier(.22,1,.36,1),filter 1.05s cubic-bezier(.22,1,.36,1)}
+.frame.enter{animation-duration:.6s;animation-timing-function:cubic-bezier(.16,1,.3,1)} /* daha seri */
+.frame.leave{animation-duration:.26s}
+.strip i{transition:.25s}
+.flash.go{animation-duration:.45s}
+#gallery .pol{transition:opacity .65s cubic-bezier(.2,.7,.2,1),filter .65s,transform .75s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.frame:not(.leave) img{animation:kb 16s cubic-bezier(.2,.6,.2,1) both}
+@keyframes kb{from{scale:1}to{scale:1.05}}
+#story .sub{animation:up 1.6s .5s cubic-bezier(.22,1,.36,1) both}
+.btn{transition:background .6s cubic-bezier(.22,1,.36,1),color .6s cubic-bezier(.22,1,.36,1),letter-spacing .6s cubic-bezier(.22,1,.36,1)}
+.btn:hover{letter-spacing:.18em}
+
+/* ===== Sahne A — Akıp giden kareler (35 mm film makarası) ===== */
+#ch45{max-width:none;padding:clamp(1rem,3.5vh,2.2rem) 0;min-height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+#ch45 h2{margin-bottom:.4rem}
+#ch45 h2,#ch45 .sub{padding:0 1.25rem}
+.projector{position:relative;width:100%;display:flex;flex-direction:column;gap:.7rem;padding:.6rem 0;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.projector::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(60% 70% at 50% 50%,#ffd9a026,transparent 70%);animation:flick .17s steps(2) infinite}
+@keyframes flick{0%{opacity:.6}50%{opacity:1}100%{opacity:.75}}
+.projector::after{content:"";position:absolute;top:0;bottom:0;left:22%;width:1px;background:#fff4;opacity:0;z-index:2;pointer-events:none;animation:scratch 5s steps(1) infinite}
+@keyframes scratch{0%{left:22%;opacity:.4}18%{left:71%;opacity:0}40%{left:48%;opacity:.3}60%{left:12%;opacity:0}80%{left:86%;opacity:.35}}
+.film{display:flex;width:max-content;animation:filmgo var(--dur,60s) linear infinite;will-change:transform}
+.film.rev{animation-direction:reverse}
+.projector.hold .film{animation-play-state:paused}
+@keyframes filmgo{to{transform:translateX(-50%)}}
+.cell{--cw:140px;flex:none;width:var(--cw);margin:0;padding:28px 8px;position:relative;background:linear-gradient(#1c130d,#120c08);border-left:1px solid #000}
+@media(min-width:700px){.cell{--cw:168px}}
+@media(max-height:700px){.cell{--cw:112px}} /* kısa ekranlarda şerit küçülür: 'Devam et' kaydırmadan görünsün */
+.cell::before,.cell::after{content:"";position:absolute;left:0;right:0;height:11px;background:repeating-linear-gradient(90deg,transparent 0 6px,#d9c79c 6px 20px,transparent 20px 28px);opacity:.8}
+.cell::before{top:8px}.cell::after{bottom:8px}
+.cell img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#241811;filter:sepia(.55) contrast(1.08) brightness(.92) !important}
+.cell .fn{position:absolute;right:14px;bottom:36px;font:.6rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.12em;color:#e0a458;opacity:.85;text-shadow:0 0 4px #000}
+#rhint{margin:.8rem 0 0}
+#ch45 .cont,#ch46 .cont{margin-top:1rem}
+#to46[hidden],#to5m[hidden]{display:block;visibility:hidden} /* düğme yerini baştan ayırır: sahne zıplamasın */
+
+/* ===== Sahne B — Karanlık oda masası (süzülen kareler) ===== */
+#ch46{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(1.5rem,5vh,3rem);padding-bottom:clamp(1rem,4vh,2rem);overflow:hidden}
+.table{position:relative;width:100%;height:min(62svh,560px);margin-top:.3rem}
+.table::before{content:"";position:absolute;inset:-4% -2%;background:radial-gradient(60% 50% at 50% 45%,#7a1f1f2e,transparent 70%);pointer-events:none}
+.fp{position:absolute;width:calc(88% / var(--c,3));padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transform:translate(calc(var(--px,0) * var(--z) * 20px),calc(var(--py,0) * var(--z) * 20px)) scale(calc(.82 + var(--z) * .24));transition:transform .6s cubic-bezier(.22,1,.36,1);animation:fpin 1.1s cubic-bezier(.22,1,.36,1) calc(var(--i) * .07s) both}
+@keyframes fpin{from{opacity:0;scale:.7;filter:blur(10px)}to{opacity:1;scale:1;filter:none}}
+.fpi{display:block;position:relative;background:#f1e8d6;padding:5px 5px 18px;box-shadow:0 12px 26px #000a;filter:blur(calc((1 - var(--z)) * 1.3px)) sepia(.2);transition:scale .5s cubic-bezier(.22,1,.36,1),filter .5s,opacity .9s;animation:bob var(--t,8s) ease-in-out var(--dl,0s) infinite}
+.fpi::before{content:"";position:absolute;top:-6px;left:50%;width:34%;height:12px;margin-left:-17%;background:#c9a96acc;rotate:-3deg}
+.fpi img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#2a2118}
+@keyframes bob{0%,100%{translate:0 0;rotate:var(--r)}50%{translate:var(--bx) var(--by);rotate:calc(var(--r) + 2.4deg)}}
+.fp:hover .fpi,.fp:focus-visible .fpi{scale:1.08;filter:none}
+.fp.swap .fpi{opacity:0;scale:.92}
+.pins{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:2rem 1rem;background:radial-gradient(circle,#1a0d0acc,#050912f5);opacity:0;transition:opacity .7s;cursor:zoom-out}
+.pins[hidden]{display:none}
+.pins.on{opacity:1}
+.pins figure{max-width:min(92vw,440px);margin:0;text-align:center;transform:scale(.9) rotate(-2deg);filter:blur(6px);transition:transform 1s cubic-bezier(.22,1,.36,1),filter 1s}
+.pins.on figure{transform:none;filter:none}
+.pins img{max-height:74svh;margin:auto;box-shadow:0 30px 80px #000c;outline:1px solid #c9a96a66;outline-offset:8px;filter:sepia(.22) contrast(1.05)}
+.pins figcaption{margin-top:1.1rem;font-style:italic;color:var(--beige)}
+@media(prefers-reduced-motion:reduce){.film{animation:none!important}.projector{overflow-x:auto}}
+
+/* ===== Tur 6: sinematik açılış (Bölüm 01) ===== */
+.hero>:not(.hero-fx){position:relative;z-index:2}
+.hero-fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:1!important;animation:none!important}
+.hero-fx i{position:absolute;display:block}
+.hero-fx .aur{width:70vmax;height:70vmax;border-radius:50%;filter:blur(60px);opacity:0;mix-blend-mode:screen;transition:opacity 4s 1s}
+.hero-fx .a1{left:-28vmax;top:-22vmax;background:radial-gradient(circle,#e0a45844,transparent 62%);animation:aur1 18s ease-in-out infinite alternate}
+.hero-fx .a2{right:-32vmax;bottom:-28vmax;background:radial-gradient(circle,#5a78c459,transparent 62%);animation:aur2 22s ease-in-out infinite alternate}
+@keyframes aur1{to{translate:14vmax 9vmax;scale:1.15}}
+@keyframes aur2{to{translate:-12vmax -8vmax;scale:1.2}}
+.hero-fx .beam{top:-20%;left:-30%;width:60%;height:140%;rotate:18deg;opacity:0;background:linear-gradient(100deg,transparent 30%,#ffd9a01c 50%,transparent 70%);transition:opacity 5s 1.5s;animation:beam 16s ease-in-out infinite alternate}
+@keyframes beam{to{translate:70vw 0}}
+.hero-fx .lens{left:8%;right:8%;top:41%;height:1px;opacity:0;scale:0 1;background:linear-gradient(90deg,transparent,#ffe2a8cc,transparent);box-shadow:0 0 24px 2px #e0a45855}
+.hero-fx .hv{inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 42%,#02050bd9 100%)}
+.hero-fx .lbt,.hero-fx .lbb{left:0;right:0;height:calc(6svh + env(safe-area-inset-top));background:#02040a;transition:transform 2.6s cubic-bezier(.22,1,.36,1) .2s}
+.hero-fx .lbt{top:0;transform:translateY(-101%);border-bottom:1px solid #c9a96a33}
+.hero-fx .lbb{bottom:0;height:calc(6svh + env(safe-area-inset-bottom));transform:translateY(101%);border-top:1px solid #c9a96a33}
+body.ready .hero-fx .aur,body.ready .hero-fx .beam{opacity:1}
+body.ready .hero-fx .lbt,body.ready .hero-fx .lbb{transform:none}
+body.ready .hero-fx .lens{animation:lensin 3s cubic-bezier(.22,1,.36,1) 1.2s both}
+@keyframes lensin{0%{opacity:0;scale:0 1}40%{opacity:1}100%{opacity:.55;scale:1 1}}
+/* harf harf isim, kelime kelime alıntı */
+.hero h1.split{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit;animation:none;opacity:1}
+.ch{display:inline-block;opacity:0;background:linear-gradient(180deg,var(--ivory),var(--gold) 80%);-webkit-background-clip:text;background-clip:text;color:transparent}
+body.ready .ch{animation:chin 2.1s cubic-bezier(.22,1,.36,1) calc(.9s + var(--i) * .17s) both}
+@keyframes chin{from{opacity:0;filter:blur(18px);transform:translateY(.35em) scale(1.12)}to{opacity:1;filter:none;transform:none}}
+.hero blockquote{opacity:1}
+.w{display:inline-block;opacity:0}
+body.ready .w{animation:win 1.7s cubic-bezier(.22,1,.36,1) calc(2.5s + var(--i) * .1s) both}
+@keyframes win{from{opacity:0;filter:blur(8px);transform:translateY(.5em)}to{opacity:1;filter:none;transform:none}}
+body.ready .hero blockquote{animation:none}
+body.ready .hero .kick{animation:kickin 2.6s cubic-bezier(.22,1,.36,1) .3s both}
+@keyframes kickin{from{opacity:0;letter-spacing:.7em;filter:blur(6px)}to{opacity:1;letter-spacing:.32em;filter:none}}
+.meta{font-size:.82rem;letter-spacing:.5em;padding-left:.5em;color:var(--beige);margin:0}
+body.ready .hero .meta{animation-delay:1.6s}
+body.ready .hero .cta{animation-delay:4.2s}
+.sound{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--beige);margin:1.6rem 0 0}
+body.ready .hero .sound{animation:up 2s 5.4s both;opacity:.7}
+/* imleç/eğim ile hafif derinlik */
+.hero h1{translate:calc(var(--px,0) * -8px) calc(var(--py,0) * -6px);transition:translate 1.2s cubic-bezier(.22,1,.36,1)}
+.hero .kick,.hero blockquote{translate:calc(var(--px,0) * -4px) calc(var(--py,0) * -3px);transition:translate 1.2s cubic-bezier(.22,1,.36,1)}
+
+/* ===== Bölüm 04 — Cam kareler ===== */
+#sky{width:100%}
+.glass{position:relative;width:100%;height:min(60svh,500px);margin:0 auto}
+.glass::before{content:"";position:absolute;inset:-6% -4%;background:radial-gradient(40% 36% at 30% 38%,#e0a4582e,transparent 70%),radial-gradient(38% 34% at 72% 58%,#5a78c43a,transparent 72%);filter:blur(18px);animation:breathe 9s ease-in-out infinite;pointer-events:none}
+.glass::after{content:"";position:absolute;left:50%;top:42%;width:92%;aspect-ratio:1;translate:-50% -50%;background:radial-gradient(circle,#e0a45855,transparent 65%);opacity:0;transition:opacity 3s;pointer-events:none}
+.glass.done::after{opacity:1;animation:breathe 5s ease-in-out infinite}
+.glines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.glines path{fill:none;stroke:#e0a458;stroke-width:1;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:.75;filter:drop-shadow(0 0 3px #e0a458);transition:stroke-dashoffset 1.2s cubic-bezier(.65,0,.35,1),opacity 1.2s}
+.glines path.on{stroke-dashoffset:0}
+.glines.fade path,.glass.done .glines path{opacity:0}
+.gn{--ez:cubic-bezier(.22,1,.36,1);position:absolute;left:var(--x);top:var(--y);width:calc(62px * var(--s,1));aspect-ratio:4/5;translate:-50% -50%;rotate:var(--rot,0deg);z-index:1;opacity:0;transition:left 1.2s var(--ez),top 1.2s var(--ez),width 1.2s var(--ez),rotate 1.2s var(--ez),opacity 1s}
+.gn.in{opacity:.6}
+.gn.awake,.gn.lit,.gn.final{opacity:1}
+.gn.awake{left:50%;top:42%;width:min(56vw,230px);--rot:0deg;z-index:6}
+.gn.lit{width:calc(70px * var(--s,1));z-index:3}
+.gn.final{left:calc(50% + var(--fx));top:calc(42% + var(--fy,0px));width:min(44vw,184px);rotate:var(--fr);z-index:var(--fz);cursor:pointer}
+.gn{transition:left 1.2s var(--ez),top 1.2s var(--ez),width 1.2s var(--ez),rotate 1.2s var(--ez),transform .45s var(--ez),opacity 1s}
+/* yerleştikten sonra etkileşim hızlı ve akıcı */
+.gn.settled{transition:left .6s var(--ez),top .6s var(--ez),width .6s var(--ez),rotate .45s var(--ez),transform .4s var(--ez),opacity .8s}
+/* üzerine gelen/dokunulan kart: yukarı çıkar, büyür, dikleşir ve parlar; komşular geri çekilir */
+.gn.final.pop{transform:translateY(-38px) scale(1.24);rotate:0deg;z-index:30}
+.gn.final.pop .gi{box-shadow:inset 0 1px 0 #ffffff88,0 0 80px #ffd27a88,0 34px 70px #000b}
+.gn.final.pop .gi img{transform:scale(1.07)}
+.glass.done:has(.pop) .gn.final:not(.pop){filter:brightness(.72) saturate(.85)}
+.glass{touch-action:pan-y}
+.gi{position:absolute;inset:0;border-radius:24px;overflow:hidden;background:linear-gradient(145deg,#ffffff24,#ffffff08);-webkit-backdrop-filter:blur(12px) saturate(1.3);backdrop-filter:blur(12px) saturate(1.3);border:1px solid #ffffff33;box-shadow:inset 0 1px 0 #ffffff55,inset 0 -20px 40px #e0a4581a,0 18px 50px #0008;transform:translate(calc(var(--px,0) * var(--d) * 12px),calc(var(--py,0) * var(--d) * 12px));transition:box-shadow 1.4s;animation:gfloat var(--t) ease-in-out var(--dl) infinite}
+@keyframes gfloat{50%{translate:0 -7px;rotate:1.6deg}}
+.gi img{position:absolute;inset:6%;width:88%;height:88%;object-fit:cover;-webkit-mask-image:radial-gradient(ellipse 72% 74% at 50% 50%,#000 52%,transparent 100%);mask-image:radial-gradient(ellipse 72% 74% at 50% 50%,#000 52%,transparent 100%);filter:blur(3px) brightness(.55) saturate(.7);transition:filter 1.6s,transform 1.6s}
+.gn.awake .gi img,.gn.final .gi img{filter:none;transform:scale(1.03)}
+.gn.lit .gi img{filter:brightness(.95) saturate(1.05)}
+.gn.awake .gi,.gn.final .gi{box-shadow:inset 0 1px 0 #ffffff66,0 0 60px #e0a45866,0 24px 60px #000a}
+.gi::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,#ffffff40 50%,transparent 65%);transform:translateX(-120%);pointer-events:none}
+.gn.awake .gi::after{animation:sheen 2.4s .6s ease-out 1}
+@keyframes sheen{to{transform:translateX(120%)}}
+/* şeffaf PNG kesimler: cam kutu olmadan, serbestçe süzülür */
+.gn.cut .gi{background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;overflow:visible}
+.gn.cut .gi img{inset:0;width:100%;height:100%;object-fit:contain;-webkit-mask-image:none;mask-image:none;filter:drop-shadow(0 12px 30px #000a) brightness(.7)}
+.gn.cut.awake .gi img,.gn.cut.final .gi img,.gn.cut.lit .gi img{filter:drop-shadow(0 12px 30px #000a)}
+.gn.cut .gi::after{display:none}
+
+/* =====================================================================
+   TUR 8 — Sinematik jenerik açılışı (Bölüm 01), Bölüm 04 uzayı, organik perdeler
+   ===================================================================== */
+
+/* ---------- Açılış: katmanlı ışık, lens flare, film greni ---------- */
+#intro{transition:opacity 1.9s cubic-bezier(.22,1,.36,1),visibility 1.9s,transform 2.2s cubic-bezier(.22,1,.36,1),filter 1.9s;overflow:hidden}
+#intro.out{transform:scale(1.07);filter:blur(10px) brightness(1.4)}
+#intro>.ifx{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ifx i{position:absolute;display:block}
+.ifx .ia{width:90vmax;height:90vmax;border-radius:50%;filter:blur(70px);mix-blend-mode:screen}
+.ifx .ia1{left:-38vmax;top:-34vmax;background:radial-gradient(circle,#e0a45844,transparent 62%);opacity:calc(.35 + var(--ip,0) * .65);animation:aur1 16s ease-in-out infinite alternate}
+.ifx .ia2{right:-42vmax;bottom:-40vmax;background:radial-gradient(circle,#5a78c466,transparent 62%);opacity:calc(.45 + var(--ip,0) * .4);animation:aur2 20s ease-in-out infinite alternate}
+.ifx .ibeam{top:-20%;left:-40%;width:55%;height:140%;rotate:16deg;background:linear-gradient(100deg,transparent 30%,#ffd9a01f 50%,transparent 70%);animation:beam 12s ease-in-out infinite alternate}
+/* anamorfik yatay flare: saat 00:00'a yaklaştıkça uzar ve parlar */
+.ifx .iflare{left:50%;top:calc(50% - 1.2rem);width:calc(26vw + var(--ip,0) * 90vw);max-width:140vw;height:2px;translate:-50% -50%;background:linear-gradient(90deg,transparent,#ffe2a8cc 30%,#fff 50%,#ffe2a8cc 70%,transparent);box-shadow:0 0 22px 3px #e0a45866,0 0 70px 10px #e0a45822;opacity:calc(.18 + var(--ip,0) * .6);transition:width 1.3s cubic-bezier(.22,1,.36,1),opacity 1.3s}
+#intro.tick .iflare{animation:flpulse 1.1s ease-out}
+@keyframes flpulse{0%{opacity:.95;scale:1 3.2}100%{scale:1 1}}
+/* lens hayaletleri: ışık kaynağının karşı yönünde kayan renkli halkalar */
+.ifx .ighost{width:var(--g);height:var(--g);border-radius:50%;border:1px solid var(--c);background:radial-gradient(circle,var(--c2),transparent 70%);opacity:calc(var(--ip,0) * .55);translate:calc((var(--ip,0) - .5) * var(--sh)) calc((var(--ip,0) - .5) * var(--sv));left:calc(50% - var(--g) / 2);top:calc(50% - var(--g) / 2);transition:translate 1.3s cubic-bezier(.22,1,.36,1),opacity 1.3s}
+.ifx .g1{--g:min(34vw,160px);--c:#e0a45866;--c2:#e0a4581a;--sh:-60vw;--sv:-20vh}
+.ifx .g2{--g:min(18vw,86px);--c:#8fb0ff55;--c2:#8fb0ff22;--sh:42vw;--sv:14vh}
+.ifx .g3{--g:min(52vw,250px);--c:#ffd9a02a;--c2:transparent;--sh:-26vw;--sv:30vh}
+.ifx .iflash{inset:0;background:radial-gradient(circle at 50% 46%,#fff,#ffe2a8 25%,transparent 65%);opacity:0;mix-blend-mode:screen}
+#intro.zeroed .iflash{animation:zflash 1.8s ease-out both}
+@keyframes zflash{0%{opacity:0}12%{opacity:.95}100%{opacity:0}}
+.ifx .iv{inset:0;background:radial-gradient(110% 85% at 50% 48%,transparent 40%,#02050bdd 100%)}
+body:not(.ready) .grain{opacity:.16}
+/* geri sayım halkası: film "leader" çemberi */
+.iring{position:absolute;left:50%;top:calc(50% - 1.2rem);width:min(90vw,460px);translate:-50% -50%;z-index:1;pointer-events:none;overflow:visible;rotate:-90deg}
+.iring circle{fill:none}
+.iring .r0{stroke:#c9a96a33;stroke-width:.6}
+.iring .r1{stroke:#ffe2a8;stroke-width:1.4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 4px #e0a458);transition:stroke-dashoffset 1.3s cubic-bezier(.22,1,.36,1)}
+.iring .r2{stroke:#c9a96a55;stroke-width:3;stroke-dasharray:.6 5.4;animation:ringrot 40s linear infinite;transform-origin:100px 100px}
+@keyframes ringrot{to{transform:rotate(360deg)}}
+#intro.zeroed .iring{animation:ringout 1.6s cubic-bezier(.22,1,.36,1) both}
+@keyframes ringout{to{scale:1.35;opacity:0}}
+/* saat: rakamlar mekanik bir sayaç gibi döner */
+.clock{perspective:600px;text-shadow:0 0 40px #e0a45844,0 0 90px #e0a45822}
+.clock span.c{display:inline-block;animation:roll .85s cubic-bezier(.22,1,.36,1) both}
+@keyframes roll{from{opacity:0;transform:translateY(.55em) rotateX(-75deg);filter:blur(9px)}60%{opacity:1}to{opacity:1;transform:none;filter:none}}
+#intro.zeroed .clock{animation:zeroPulse 1.6s cubic-bezier(.22,1,.36,1) both}
+@keyframes zeroPulse{0%{scale:1}25%{scale:1.14;color:#fff;text-shadow:0 0 90px #ffe2a8,0 0 160px #e0a458}100%{scale:1.04}}
+.introtxt{text-transform:uppercase;font-size:.78rem;letter-spacing:.5em;padding-left:.5em}
+.il{display:inline-block;opacity:0;animation:ilin 1.6s cubic-bezier(.22,1,.36,1) calc(.5s + var(--i) * .055s) both}
+@keyframes ilin{from{opacity:0;filter:blur(10px);transform:translateY(.7em)}to{opacity:.9;filter:none;transform:none}}
+.introhint{animation:hintpulse 1.8s ease-in-out infinite,up 1.2s both;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+/* ---------- Bölüm 01: jenerik ---------- */
+.hero-fx .rays{left:50%;top:38%;width:150vmax;height:150vmax;translate:-50% -50%;opacity:0;background:repeating-conic-gradient(from 0deg,#ffd9a014 0 5deg,transparent 5deg 17deg);-webkit-mask-image:radial-gradient(circle,#000 0,transparent 55%);mask-image:radial-gradient(circle,#000 0,transparent 55%);transition:opacity 5s 1.2s;animation:raysrot 120s linear infinite}
+body.ready .hero-fx .rays{opacity:1}
+@keyframes raysrot{to{rotate:360deg}}
+.hero-fx .gh{border-radius:50%;opacity:0;border:1px solid #e0a45833;background:radial-gradient(circle,#e0a4581c,transparent 70%);transition:opacity 4s 2s;animation:ghdrift 15s ease-in-out infinite alternate}
+.hero-fx .g1{width:min(30vw,150px);aspect-ratio:1;left:14%;top:60%}
+.hero-fx .g2{width:min(16vw,80px);aspect-ratio:1;left:78%;top:30%;border-color:#8fb0ff33;background:radial-gradient(circle,#8fb0ff1f,transparent 70%);animation-delay:-5s}
+.hero-fx .g3{width:min(46vw,230px);aspect-ratio:1;left:60%;top:66%;border-color:#ffd9a01f;animation-delay:-9s}
+body.ready .hero-fx .gh{opacity:1}
+@keyframes ghdrift{to{translate:5vw -7vh;scale:1.18}}
+/* kicker: kelime kelime, harf harf */
+.hero .kick{opacity:1}
+body.ready .hero .kick{animation:none;opacity:1}
+.kw{display:inline-block;white-space:nowrap}
+.kc{display:inline-block;opacity:0}
+body.ready .kc{animation:kcin 1.5s cubic-bezier(.22,1,.36,1) calc(.4s + var(--i) * .05s) both}
+@keyframes kcin{from{opacity:0;filter:blur(8px);transform:translateY(-.6em) scale(1.3)}to{opacity:1;filter:none;transform:none}}
+/* isim: harflerin üstünden geçen ışık dalgası */
+.ch{background:linear-gradient(105deg,transparent 40%,#fff9 50%,transparent 60%) 220% 0/260% 100% no-repeat,linear-gradient(180deg,var(--ivory),var(--gold) 80%);-webkit-background-clip:text;background-clip:text}
+body.ready .ch{animation:chin 2.1s cubic-bezier(.22,1,.36,1) calc(.9s + var(--i) * .17s) both,chsheen 7s ease-in-out calc(4.4s + var(--i) * .14s) infinite}
+@keyframes chsheen{0%,55%{background-position:220% 0,0 0}100%{background-position:-120% 0,0 0}}
+body.ready .hero .rule{animation:rulein 2.4s cubic-bezier(.22,1,.36,1) 1.4s both}
+@keyframes rulein{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:none}}
+body.ready .hero .cta{animation-delay:3.8s}
+/* mıknatıslı başlat düğmesi */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes angspin{to{--ang:360deg}}
+#start{--mx:0px;--my:0px;translate:var(--mx) var(--my);border:1px solid transparent;background:linear-gradient(var(--navy),var(--navy)) padding-box,conic-gradient(from var(--ang),#c9a96a22,#ffe2a8,#c9a96a22 35%,#c9a96a22) border-box;animation:bob 2.8s ease-in-out infinite,angspin 5s linear infinite;box-shadow:0 0 30px #e0a45822;transition:translate .5s cubic-bezier(.22,1,.36,1),background .6s,color .6s,letter-spacing .6s,box-shadow .6s}
+#start::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(130px circle at var(--gx,50%) var(--gy,50%),#e0a45855,transparent 70%);opacity:0;transition:opacity .4s}
+#start.mag::before{opacity:1}
+#start.mag{box-shadow:0 0 50px #e0a45855,0 0 120px #e0a45822}
+#start:hover{background:var(--gold)}
+#start .rp{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#ffe2a8aa;pointer-events:none;animation:rp .9s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes rp{to{transform:scale(34);opacity:0}}
+
+/* ---------- Bölüm 04: derin uzay ---------- */
+.twinkles{inset:-10% -5%}
+.twinkles i{translate:calc(var(--px,0) * var(--k,.5) * -16px) calc(var(--py,0) * var(--k,.5) * -16px);transition:translate 1.2s cubic-bezier(.22,1,.36,1)}
+.twinkles i:nth-child(3n){background:#ffd9a0}
+.twinkles i:nth-child(5n){background:#bcd0ff}
+.twinkles::before,.twinkles::after{content:"";position:absolute;pointer-events:none;border-radius:50%;filter:blur(40px)}
+.twinkles::before{left:-10%;top:10%;width:60%;aspect-ratio:1;background:radial-gradient(circle,#5a78c433,transparent 70%);animation:ghdrift 24s ease-in-out infinite alternate}
+.twinkles::after{right:-14%;bottom:0;width:56%;aspect-ratio:1;background:radial-gradient(circle,#e0a45826,transparent 70%);animation:ghdrift 28s ease-in-out -8s infinite alternate}
+.gring{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:1px solid #ffe2a8cc;box-shadow:0 0 18px #e0a458aa,inset 0 0 12px #e0a45866;pointer-events:none;z-index:2;animation:gring 1.3s cubic-bezier(.22,1,.36,1) forwards}
+@keyframes gring{from{transform:scale(1);opacity:1}to{transform:scale(11);opacity:0}}
+.gn.lit .gi{box-shadow:inset 0 1px 0 #ffffff55,0 0 34px #e0a45833,0 16px 40px #0008}
+
+/* ---------- Organik perdeler: göz kapağı kıvrımı, yumuşak kenar, ışık sızıntıları ---------- */
+.bars i{box-shadow:0 0 0 0 transparent}
+.bars i:first-of-type{border-radius:0 0 50% 50% / 0 0 11vh 11vh;box-shadow:0 18px 50px 14px #04070dcc}
+.bars i:last-of-type{border-radius:50% 50% 0 0 / 11vh 11vh 0 0;box-shadow:0 -18px 50px 14px #04070dcc}
+.bars.go i{animation:lid 2.3s cubic-bezier(.7,0,.2,1)}
+@keyframes lid{0%,100%{height:0}36%,64%{height:55vh}}
+.bars.go i::after{animation:trim2 2.3s ease-in-out}
+@keyframes trim2{0%,14%,86%,100%{opacity:0}34%,66%{opacity:1}}
+.bars.go .iris{animation:iris2 2.3s cubic-bezier(.65,0,.35,1)}
+@keyframes iris2{0%{--ir:150%;opacity:1}36%,64%{--ir:0%;opacity:1}100%{--ir:150%;opacity:1}}
+/* film yanığı: düzensiz, nefes alan sıcak lekeler */
+.bars .burn{background:radial-gradient(46% 38% at 30% 42%,#ffd08acc,transparent 70%),radial-gradient(40% 34% at 72% 58%,#ff9a5acc,transparent 70%),radial-gradient(70% 55% at 50% 50%,#e0a458aa,transparent 72%)}
+.bars.go .burn{animation:burn2 2.3s ease-in-out}
+@keyframes burn2{0%,34%{opacity:0;scale:1}44%{opacity:.85;scale:1.08}52%{opacity:.2}58%{opacity:.7;scale:1.04}78%,100%{opacity:0;scale:1.12}}
+/* iki yandan süpüren amber ışık sızıntısı */
+.bars .leakA,.bars .leakB{position:fixed;top:-10%;bottom:-10%;width:60%;z-index:121;pointer-events:none;opacity:0;mix-blend-mode:screen}
+.bars .leakA{left:-60%;background:linear-gradient(100deg,transparent,#ffb86a99 45%,#ff7a4a66 62%,transparent)}
+.bars .leakB{right:-60%;background:linear-gradient(260deg,transparent,#ffd9a077 45%,#e0a45855 62%,transparent)}
+.bars.go .leakA{animation:leakA 2.3s cubic-bezier(.4,0,.2,1)}
+.bars.go .leakB{animation:leakB 2.3s cubic-bezier(.4,0,.2,1) .1s}
+@keyframes leakA{0%{translate:0;opacity:0}30%{opacity:.9}70%{opacity:.7}100%{translate:240%;opacity:0}}
+@keyframes leakB{0%{translate:0;opacity:0}30%{opacity:.8}70%{opacity:.6}100%{translate:-240%;opacity:0}}
+.bars.go .bcard{animation:bcard2 2.3s ease-in-out both}
+@keyframes bcard2{0%,30%{opacity:0;transform:translateY(8px);filter:blur(8px);letter-spacing:.4em}46%,58%{opacity:1;transform:none;filter:none;letter-spacing:.14em}74%,100%{opacity:0;transform:translateY(-6px);filter:blur(5px);letter-spacing:.2em}}
+body.sahnede .grain{opacity:.2}
