@@ -70,8 +70,30 @@ window.CONTENT = {
     c45: "Makara dönüyor…",
     c46: "Karanlık odada…",
     c5: "Bir mektup bırakıldı…",
-    c6: "Son perde."
+    c6: "Son perde.",
+    c47: "Zamanın içinden geçiyoruz…",
+    c48: "Kareler hızlanıyor…",
+    c7: "Jenerik."
   },
+
+  /* YENİ — Hepsi Birden sahnesinin son satırı (üstünde, havuzdaki toplam kare sayısı büyük görünür) */
+  flash: { line: "kare. Hepsi bir hikâye." },
+
+  /* YENİ — Jenerik (finalde "Jenerik" düğmesiyle açılır). Satır: { role, name } · fotoğraf: { photo: true } · büyük yazı: { big } */
+  credits: [
+    { big: "A STORY WORTH REMEMBERING" },
+    { role: "Başrol", name: "HIRA" },
+    { photo: true },
+    { role: "Yardımcı Oyuncu", name: "Sıradan Günler" },
+    { role: "Görüntü Yönetmeni", name: "Telefon Galerisi" },
+    { photo: true },
+    { role: "Senaryo", name: "Hiçbir Plan Yapmadan" },
+    { role: "Müzik", name: "Sting · Shape of My Heart" },
+    { photo: true },
+    { role: "Özel Teşekkür", name: "Sana" },
+    { role: "Tarih", name: "23.11.2026" },
+    { big: "İyi ki doğdun Hira." }
+  ],
 
   /* BÖLÜM 05 — Mektup (her öğe bir paragraf; kendi anılarınla kişiselleştirebilirsin) */
   letter: {
