@@ -1,0 +1,23 @@
+/* tema.css — SON yüklenen stil dosyası: gece laciverti + pembe (#fe4f8a · #ff69ab · #e096a7). Yeşil/mor/kirli bej ton bırakmaz. */
+:root{--navy:#0a0f2c;--navy2:#131a46;--gold:#ff69ab;--amber:#fe4f8a;--rose:#e096a7;--ivory:#fdf0f5;--beige:#f0c9d4;--pk1:#fe4f8a;--pk2:#e096a7;--pk3:#ff69ab}
+html{background:#0a0f2c}
+body{background-color:#0a0f2c;background-attachment:fixed;background-image:
+  radial-gradient(62% 42% at 10% 2%,rgba(254,79,138,.30),transparent 72%),
+  radial-gradient(55% 40% at 98% 20%,rgba(255,105,171,.20),transparent 72%),
+  radial-gradient(75% 46% at 50% 104%,rgba(224,150,167,.22),transparent 74%),
+  radial-gradient(120% 70% at 50% 0,#131a46,#0a0f2c 64%)}
+/* ışık sızıntıları: sadece pembe, lacivert zemini boğmasın */
+.leak{mix-blend-mode:screen;opacity:.55;background:
+  radial-gradient(40% 35% at 15% 20%,rgba(254,79,138,.38),transparent 70%),
+  radial-gradient(35% 30% at 90% 75%,rgba(224,150,167,.30),transparent 70%),
+  radial-gradient(30% 25% at 70% 5%,rgba(255,105,171,.26),transparent 70%)}
+.vignette{background:radial-gradient(120% 90% at 50% 50%,transparent 52%,rgba(5,6,26,.84) 100%)}
+.grain{opacity:.06}
+#intro{background:radial-gradient(90% 60% at 50% 40%,#131a46,#0a0f2c 70%)}
+/* fotoğraflardaki sarı/zeytin sepya tonu kalksın */
+.frame img,.pol img,.wish img,.lbbox img,.shx-img{filter:saturate(1.02) contrast(1.04)}
+/* yeni sahnelerdeki yeşil/mor tonlar */
+.shx-term{color:#ffd0e2;box-shadow:0 0 26px #fe4f8a33}.shx-bad{color:#ff69ab}
+.shx-card,.shx-gift{background:linear-gradient(160deg,#131a46,#0c1236)}
+.tunnel{background:radial-gradient(120% 90% at 50% 50%,#131a46,#060818 70%)}
+.shx-chp{background:#131a46}
