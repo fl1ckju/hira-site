@@ -1,0 +1,90 @@
+/* shitpost2.css (2/2) — Zaman Tüneli · karanlık oda · Darla · pasta çerçevesi · video. shitpost.css'ten SONRA yüklenir. */
+
+/* ---------- ZAMAN TÜNELİ ---------- */
+#shx-tunnel{max-width:640px}
+.tunnel{position:relative;height:min(58vh,500px);margin:0 auto;overflow:hidden;border-radius:18px;perspective:720px;perspective-origin:50% 50%;background:radial-gradient(120% 90% at 50% 50%,#1a1030,#060b16 70%);box-shadow:inset 0 0 0 1px #ff69ab33,0 30px 80px #0009;touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.tscene{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.tpl{position:absolute;left:50%;top:50%;width:var(--w,110px);aspect-ratio:3/4;border-radius:5px;overflow:hidden;background:#14233f;box-shadow:0 0 0 1px #ffffff26,0 14px 40px #000a,0 0 30px #fe4f8a33;will-change:transform,opacity;backface-visibility:hidden;opacity:0}
+.tpl img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;max-width:none}
+.tfog{position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(55% 50% at 50% 50%,#fe4f8a26,transparent 70%),radial-gradient(110% 100% at 50% 50%,transparent 52%,#04070dd0 100%)}
+.tunnel::after{content:"";position:absolute;inset:-25%;z-index:3;pointer-events:none;opacity:0;transition:opacity .5s;background:repeating-conic-gradient(from 0deg at 50% 50%,#ff69ab00 0 4deg,#ff69ab2e 4.4deg 5deg,#ff69ab00 5.4deg 9deg);-webkit-mask-image:radial-gradient(circle,transparent 24%,#000 88%);mask-image:radial-gradient(circle,transparent 24%,#000 88%)}
+.tunnel.boost::after{opacity:.85}
+.tcount{position:absolute;left:0;right:0;bottom:.8rem;z-index:4;text-align:center;font-size:.72rem;letter-spacing:.4em;color:var(--pk3);opacity:.9;font-variant-numeric:tabular-nums;pointer-events:none}
+
+/* ---------- KARANLIK ODA ---------- */
+.table.shx-dark{height:min(74svh,640px);background:radial-gradient(120% 90% at 50% 100%,#3a0d1f 0,#12060d 48%,#0a040a 100%);border-radius:14px;box-shadow:inset 0 0 0 1px #ff69ab33,inset 0 0 90px #000,0 20px 60px #000a;overflow:hidden}
+.table.shx-dark::before{inset:0;background:radial-gradient(70% 50% at 82% 6%,#fe4f8a44,transparent 70%),radial-gradient(60% 40% at 20% 100%,#e096a722,transparent 70%)}
+.shx-dk{position:absolute;inset:0;pointer-events:none;z-index:0}
+.dk-safe{position:absolute;right:7%;top:3%;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle,#ffd0e2 0 18%,var(--pk1) 42%,transparent 72%);box-shadow:0 0 60px 26px #fe4f8a66;animation:shx-safe 3.4s ease-in-out infinite}
+@keyframes shx-safe{50%{opacity:.7;box-shadow:0 0 80px 36px #fe4f8a44}}
+.dk-rope{position:absolute;left:0;right:0;top:12%;height:2px;background:linear-gradient(90deg,transparent,#e096a7bb,transparent)}
+.dk-rope b{position:absolute;left:var(--l);top:-5px;width:7px;height:17px;border-radius:2px;background:var(--pk2);rotate:var(--r);transform-origin:50% 0;animation:shx-sway 4s ease-in-out infinite alternate}
+.dk-rope b::after{content:"";position:absolute;top:12px;left:-9px;width:25px;height:var(--h);background:linear-gradient(#2a1520,#12060d);border:1px solid #ff69ab55}
+@keyframes shx-sway{to{rotate:calc(var(--r) * -1)}}
+.dk-timer{position:absolute;left:5%;top:3%;text-align:center;font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--pk3);text-shadow:0 0 10px var(--pk1);background:#0009;border:1px solid #fe4f8a66;padding:.2rem .6rem;border-radius:6px}
+.dk-timer small{display:block;font-size:.55rem;letter-spacing:.3em;color:var(--pk2)}.dk-timer span{font-size:1.2rem}
+.dk-trays{position:absolute;left:4%;right:4%;bottom:2%;display:flex;gap:3%}
+.dk-trays div{flex:1;text-align:center}
+.dk-trays i{display:block;position:relative;overflow:hidden;height:26px;border-radius:4px 4px 12px 12px;background:linear-gradient(#2a1520,#12060d);border:1px solid #ff69ab44}
+.dk-trays i::after{content:"";position:absolute;left:6%;right:6%;top:6px;height:9px;border-radius:50%;background:radial-gradient(ellipse,#ff69ab77,#fe4f8a22);animation:shx-ripple 3s ease-in-out infinite}
+.dk-trays div:nth-child(2) i::after{animation-delay:-1s}.dk-trays div:nth-child(3) i::after{animation-delay:-2s}
+@keyframes shx-ripple{50%{transform:scaleX(.82) translateY(3px);opacity:.6}}
+.dk-trays small{font-size:.6rem;letter-spacing:.2em;color:var(--pk2);text-transform:uppercase}
+.dk-dust i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;background:#ffd0e2;opacity:.5;animation:shx-dust var(--d) ease-in-out var(--w) infinite}
+@keyframes shx-dust{50%{transform:translate(14px,-22px);opacity:.15}}
+.fp.shx-sel .fpi{outline:3px solid var(--pk3);outline-offset:2px;box-shadow:0 0 30px 6px #ff69ab88,0 12px 26px #000a;scale:1.1;filter:none}
+.shx-zoombox{text-align:center;margin:1rem 0 0}
+.shx-zhint{color:var(--beige);font-size:1rem;margin:0}
+.shx-zoombox .btn{margin-top:.6rem;border-color:var(--pk3)}
+.shx-zoombox .btn:not(:disabled){background:linear-gradient(135deg,var(--pk1),var(--pk3));color:#2a0d18;font-weight:700}
+
+/* ---------- DARLA: baskı arttıkça şiddetlenir ---------- */
+#shx-darla{--amp:3px;position:relative}
+.shx-meter{height:10px;border-radius:9px;background:#ffffff14;overflow:hidden;margin:.4rem auto .3rem;max-width:320px}
+.shx-meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pk2),var(--pk3),var(--pk1));transition:width .25s}
+.shx-lvl{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;color:var(--pk3);margin:0}
+.shx-stage{position:relative;min-height:250px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:.8rem}
+.shx-big{position:relative;z-index:2;width:128px;height:128px;border-radius:50%;border:0;cursor:pointer;font-weight:800;letter-spacing:.06em;font-size:.95rem;color:#2a0d18;background:radial-gradient(circle at 35% 30%,#ffb3d1,var(--pk1) 70%);box-shadow:0 8px 0 #8a1f4d,0 16px 30px #000a;touch-action:manipulation;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;transition:width .3s,height .3s}
+.shx-big:active{transform:translateY(6px);box-shadow:0 2px 0 #8a1f4d,0 8px 18px #000a}
+#shx-darla[data-lv="1"] .shx-big{width:140px;height:140px}
+#shx-darla[data-lv="2"] .shx-big{width:152px;height:152px;box-shadow:0 8px 0 #8a1f4d,0 16px 30px #000a,0 0 30px #fe4f8a88}
+#shx-darla[data-lv="3"] .shx-big{width:164px;height:164px;box-shadow:0 8px 0 #8a1f4d,0 0 46px 6px #fe4f8aaa;animation:shx-throb .5s ease-in-out infinite alternate}
+#shx-darla[data-lv="4"] .shx-big{width:176px;height:176px;box-shadow:0 8px 0 #8a1f4d,0 0 60px 12px #ff69abcc;animation:shx-throb .3s ease-in-out infinite alternate}
+#shx-darla[data-lv="5"] .shx-big{width:190px;height:190px;box-shadow:0 8px 0 #8a1f4d,0 0 80px 20px #ff69abee;animation:shx-throb .18s ease-in-out infinite alternate}
+@keyframes shx-throb{to{scale:1.06}}
+#shx-darla[data-lv="3"] .shx-stage,#shx-darla[data-lv="4"] .shx-stage,#shx-darla[data-lv="5"] .shx-stage{background:radial-gradient(60% 60% at 50% 70%,#fe4f8a2a,transparent 75%)}
+.shx-pop{position:absolute;left:50%;bottom:70px;width:84px;margin-left:-42px;border-radius:6px;z-index:1;pointer-events:none;max-width:none;animation:shx-pop 1.4s ease-out forwards}
+@keyframes shx-pop{from{transform:translate(0,0) rotate(0) scale(.4);opacity:1}to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1);opacity:0}}
+.shx-quote{min-height:3.2em;font-size:1.15rem;font-style:italic;margin:.6rem 0 .3rem}
+.shx-toast{min-height:2.6em;margin-top:.8rem;font-size:1.12rem;font-weight:700;color:var(--pk3)}
+.shx-scrflash{position:fixed;inset:0;z-index:90;pointer-events:none;background:radial-gradient(circle,#ff69ab88,#fe4f8a44 60%,transparent);animation:shx-sf .5s ease-out forwards}
+@keyframes shx-sf{from{opacity:1}to{opacity:0}}
+
+/* ---------- PASTA ÇERÇEVESİ ---------- */
+.shx-cframe{position:relative;width:min(100vw,820px);margin:0 0 0 50%;transform:translateX(-50%)}
+.shx-cdeco{position:absolute;inset:0;pointer-events:none;z-index:0}
+.cf-line{position:absolute;inset:3.6rem 3% .8rem;border:2px solid #ff69abaa;border-radius:22px;box-shadow:0 0 0 6px #fe4f8a14,0 0 40px #fe4f8a55,inset 0 0 60px #fe4f8a22;background:radial-gradient(70% 60% at 50% 55%,#fe4f8a1c,transparent 75%)}
+.cf-c{position:absolute;width:30px;height:30px;border:4px solid var(--pk1);filter:drop-shadow(0 0 6px #fe4f8a)}
+.cf-tl{left:calc(3% - 8px);top:calc(3.6rem - 8px);border-right:0;border-bottom:0;border-radius:16px 0 0 0}
+.cf-tr{right:calc(3% - 8px);top:calc(3.6rem - 8px);border-left:0;border-bottom:0;border-radius:0 16px 0 0}
+.cf-bl{left:calc(3% - 8px);bottom:calc(.8rem - 8px);border-right:0;border-top:0;border-radius:0 0 0 16px}
+.cf-br{right:calc(3% - 8px);bottom:calc(.8rem - 8px);border-left:0;border-top:0;border-radius:0 0 16px 0}
+.cf-flags{position:absolute;left:3%;right:3%;top:.5rem;display:flex;justify-content:space-between}
+.cf-flags::before{content:"";position:absolute;left:0;right:0;top:-2px;height:2px;background:#e096a7aa}
+.cf-flags i{width:0;height:0;border-left:.9rem solid transparent;border-right:.9rem solid transparent;border-top:1.7rem solid var(--c);transform-origin:50% 0;animation:shx-flag 2.6s ease-in-out var(--w) infinite alternate}
+@keyframes shx-flag{from{rotate:-7deg}to{rotate:7deg}}
+.cf-lights{position:absolute;left:5%;right:5%;top:2.9rem;display:flex;justify-content:space-between}
+.cf-lights b{width:7px;height:7px;border-radius:50%;background:#ffd0e2;box-shadow:0 0 10px 3px var(--pk3);animation:shx-twinkle 1.6s ease-in-out var(--w) infinite}
+.cf-pol{position:absolute;width:19%;margin:0;background:#f4ecdc;padding:4% 4% 9%;box-shadow:0 10px 24px #000a,0 0 18px #fe4f8a44}
+.cf-pol::before{content:"";position:absolute;top:-8px;left:50%;width:40%;height:14px;margin-left:-20%;background:#ff69abbb;rotate:-3deg}
+.cf-pol img{display:block;width:100%;aspect-ratio:1;object-fit:cover;max-width:none;filter:sepia(.15)}
+.cf-p1{left:1%;top:24%;rotate:-8deg}.cf-p2{right:1%;top:26%;rotate:7deg}.cf-p3{left:2%;bottom:6%;rotate:5deg}.cf-p4{right:2%;bottom:7%;rotate:-6deg}
+@media(max-width:480px){.cf-pol{width:22%}}
+#cakeCv{filter:drop-shadow(0 0 14px #ff69ab55)}
+
+/* ---------- FİNAL VİDEOSU ---------- */
+.shx-vwrap{position:relative;width:100%;aspect-ratio:16/9;max-height:76vh;margin:0 auto;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 0 0 2px #ff69ab88,0 18px 50px #000b,0 0 40px #fe4f8a33}
+.shx-vwrap.dikey{max-width:min(100%,420px)}
+.shx-vwrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;max-width:none}
+.shx-vload{position:absolute;inset:0;display:grid;place-items:center;color:var(--beige);letter-spacing:.2em;font-size:.85rem;background:radial-gradient(circle,#2a1020,#000);pointer-events:none}
+.shx-note{color:#ff9fc4;font-size:.95rem;margin-top:.7rem}
