@@ -7,19 +7,20 @@
 <meta name="theme-color" content="#0b1426">
 <meta name="color-scheme" content="dark">
 <meta name="robots" content="noindex,nofollow">
-<title>Yine mi doğum günü?</title>
+<title>A Story Worth Remembering</title>
 <style>html,body{background:#0b1426;color:#f4ecdc}</style>
 <link rel="stylesheet" href="style.css?v=21">
 <link rel="stylesheet" href="extra.css?v=21">
 <link rel="stylesheet" href="shitpost.css?v=21">
+<link rel="stylesheet" href="shitpost2.css?v=21">
 </head>
 <body class="locked">
 <div id="intro" role="status" aria-label="Açılış">
   <div class="ifx" aria-hidden="true"><i class="ia ia1"></i><i class="ia ia2"></i><i class="ibeam"></i><i class="iflare"></i><i class="ighost g1"></i><i class="ighost g2"></i><i class="ighost g3"></i><i class="iflash"></i><i class="iv"></i></div>
   <svg class="iring" viewBox="0 0 200 200" aria-hidden="true" style="position:absolute;left:50%;top:calc(50% - 1.2rem);width:min(90vw,460px);transform:translate(-50%,-50%) rotate(-90deg);pointer-events:none;z-index:1"><circle class="r0" cx="100" cy="100" r="94" fill="none"/><circle class="r1" id="ring" cx="100" cy="100" r="94" pathLength="100" fill="none"/><circle class="r2" cx="100" cy="100" r="86" fill="none"/></svg>
   <div class="clock" id="clock" aria-hidden="true"><span>23</span><i>:</i><span>52</span></div>
-  <p class="introtxt">Birazdan rezillik başlıyor, sakin ol</p>
-  <p class="introhint" id="hint" hidden>Dokun şuna, bekletme beni</p>
+  <p class="introtxt">Bir hikâye başlamak üzere…</p>
+  <p class="introhint" id="hint" hidden>Başlamak için dokun</p>
 </div>
 <noscript><style>#intro{display:none}.hero>*{opacity:1!important}</style></noscript>
 <canvas id="dust" aria-hidden="true"></canvas>
@@ -47,70 +48,69 @@
         <ellipse cx="40" cy="47" rx="2.3" ry="1.7" fill="#d99a9a"/>
       </svg>
       <span class="sp sp1" aria-hidden="true">✨</span><span class="sp sp2" aria-hidden="true">🤍</span><span class="sp sp3" aria-hidden="true">🌙</span><span class="sp sp4" aria-hidden="true">⭐</span>
-      <button id="start" class="btn" type="button">Hadi rezilliği başlat</button>
+      <button id="start" class="btn" type="button">Başla</button>
     </div>
-    <p class="sound">Kulaklık tak, çevreye rezil olma</p>
   </section>
 
   <div id="story" hidden>
-    <section id="ch2"><h2 tabindex="-1">Kanıtlar</h2>
-      <p class="sub">Her kare, "o gün de bir olay çıkmıştı" dediğimiz saçmalık.</p>
+    <section id="ch2"><h2 tabindex="-1">Anılarımız</h2>
+      <p class="sub">Her kare, sıradan bir günün unutulmaz hâli.</p>
       <div id="memories">
         <div class="reel" id="reel" aria-live="polite"></div>
         <div class="flash" id="flash" aria-hidden="true"></div>
         <p class="counter" id="counter"></p>
         <div class="strip" id="strip" aria-hidden="true"></div>
-        <button class="tap" id="next" type="button">Dokun · sıradaki rezillik</button>
+        <button class="tap" id="next" type="button">Dokun · sonraki kare</button>
       </div>
     </section>
-    <section id="ch3"><h2>Gizli Çekimler</h2><p class="holdhint" id="holdhint">Basılı tut · sayfa kendi akar, tembel</p><div id="gallery"></div>
-      <button class="tap cont" id="to4" type="button">Devam et, kaçış yok →</button>
+    <section id="ch3"><h2>Küçük Anlar</h2><p class="holdhint" id="holdhint">Ekrana basılı tut · yavaşça aksın</p><div id="gallery"></div>
+      <button class="tap cont" id="to4" type="button">Devam et →</button>
     </section>
-    <section id="ch4" hidden><h2 tabindex="-1">Sana Söylemem Gerekenler (Bir Kereye Mahsus)</h2>
+    <section id="ch4" hidden><h2 tabindex="-1">Bilmeni İstediklerim</h2>
       <div id="sky">
         <div class="twinkles" id="twinkles" aria-hidden="true"></div>
-        <div class="glass" id="glass" aria-label="Süzülen rezil kareler">
+        <div class="glass" id="glass" aria-label="Cam çerçevede süzülen anılar">
           <svg class="glines" id="glines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
         </div>
         <div class="note" id="note" aria-live="polite"></div>
         <p class="counter" id="c4count"></p>
-        <button class="tap" id="c4next" type="button">Dokun, ilk kare uyansın</button>
-        <button class="tap cont" id="to5" type="button" hidden>Devam et, daha var →</button>
+        <button class="tap" id="c4next" type="button">Dokun · ilk kareyi uyandır</button>
+        <button class="tap cont" id="to5" type="button" hidden>Devam et →</button>
       </div>
     </section>
-    <section id="ch45" hidden><h2 tabindex="-1">Film Şeridi (Pahalıya Patladı)</h2>
-      <p class="sub">Eski makara gibi, ben gibi: durmak bilmiyor.</p>
-      <div class="projector" id="projector" aria-label="Akıp giden rezillik">
+    <section id="ch45" hidden><h2 tabindex="-1">Akıp Giden Kareler</h2>
+      <p class="sub">Eski bir makara gibi, hiç durmadan.</p>
+      <div class="projector" id="projector" aria-label="Akan film şeridi">
         <div class="film" id="film1"></div>
         <div class="film rev" id="film2"></div>
       </div>
-      <p class="holdhint" id="rhint">Basılı tut · makara nefes alsın</p>
-      <button class="tap cont" id="to46" type="button" hidden>Devam et, bitmedi →</button>
+      <p class="holdhint" id="rhint">Basılı tut · makara dursun</p>
+      <button class="tap cont" id="to46" type="button" hidden>Devam et →</button>
     </section>
-    <section id="ch46" hidden><h2 tabindex="-1">Karanlık Oda (Yüzünü Düzelt)</h2>
-      <p class="sub">Bir kareye dokun, yakından rezil ol.</p>
+    <section id="ch46" hidden><h2 tabindex="-1">Karanlık Odadan</h2>
+      <p class="sub">Bir kareye dokun · yakından bak.</p>
       <div class="table" id="table"></div>
-      <button class="tap cont" id="to5m" type="button" hidden>Mektuba geç →</button>
+      <button class="tap cont" id="to5m" type="button" hidden>Devam et →</button>
     </section>
-    <section id="ch5"><h2>Hira'ya Mektup (Duygusal Değil)</h2>
+    <section id="ch5"><h2>Hira İçin Bir Mektup</h2>
       <div class="envwrap" id="envwrap">
-        <button id="envelope" class="env" type="button" aria-expanded="false" aria-label="Mektubu aç, ısırmıyor">
+        <button id="envelope" class="env" type="button" aria-expanded="false" aria-label="Mektubu aç">
           <span class="flap"></span><span class="seal">H</span>
         </button>
-        <p class="envhint" id="envhint">Mektubu açmak için dokun, ısırmıyor</p>
+        <p class="envhint" id="envhint">Mektubu açmak için dokun</p>
       </div>
       <article id="paper" class="paper" hidden></article>
-      <button class="tap cont" id="to6" type="button" hidden>Pastaya geç →</button>
+      <button class="tap cont" id="to6" type="button" hidden>Devam et →</button>
     </section>
-    <section id="ch6" class="finale"><h2>Final (Pasta Vakti)</h2>
+    <section id="ch6" class="finale"><h2>Son Sahne</h2>
       <div class="stage" id="stage">
         <canvas id="cakeGlow" aria-hidden="true"></canvas>
-        <canvas id="cakeCv" role="img" aria-label="Mum yanıyor, yangın değil"></canvas>
+        <canvas id="cakeCv" role="img" aria-label="Yanan mumlu doğum günü pastası"></canvas>
       </div>
-      <p class="spinhint" id="spinhint" hidden>Pastayı çevir ama yeme</p>
-      <button id="blow" class="btn" type="button">Mumu üfle, tükürme</button>
+      <p class="spinhint" id="spinhint" hidden>Pastayı çevirmek için sürükle</p>
+      <button id="blow" class="btn" type="button">Mumu üfle</button>
       <div id="wish" class="wish"></div>
-      <div id="closing" class="closing"><p>— SON —</p><small>Sting · Shape of My Heart</small><button class="btn" type="button" id="again">Baştan izle, ne yapalım</button></div>
+      <div id="closing" class="closing"><p>— SON —</p><small>Sting · Shape of My Heart</small><button class="btn" type="button" id="again">Başa dön</button></div>
     </section>
   </div>
 </main>
@@ -120,7 +120,7 @@
   <div class="lbbox"><button type="button" id="lbp" aria-label="Önceki">‹</button><figure><img id="lbi" alt=""><figcaption id="lbc"></figcaption></figure><button type="button" id="lbn" aria-label="Sonraki">›</button></div>
 </div>
 
-<div id="pins" class="pins" role="dialog" aria-modal="true" aria-label="Fotoğrafa yakından rezil ol" hidden><figure><img id="pinimg" alt=""><figcaption id="pincap"></figcaption></figure></div>
+<div id="pins" class="pins" role="dialog" aria-modal="true" aria-label="Fotoğrafa yakından bak" hidden><figure><img id="pinimg" alt=""><figcaption id="pincap"></figcaption></figure></div>
 
 <audio id="bgm" loop preload="none" playsinline></audio>
 <div id="mframe" class="mframe" hidden></div>
@@ -134,8 +134,9 @@
 <script src="finale.js?v=21"></script>
 <script src="extra.js?v=21"></script>
 <script src="shitpost.js?v=21"></script>
+<script src="shitpost2.js?v=21"></script>
 <script>/* Eksik ya da yarım kalmış dosya varsa açılış ekranında hangisi olduğunu yazar */
-setTimeout(function(){var ok=window.__ok||[],miss=["cakea","cakeb","cakec","app","finale","extra"].filter(function(n){return ok.indexOf(n)<0});
+setTimeout(function(){var ok=window.__ok||[],miss=["cakea","cakeb","cakec","app","finale","extra","shitpost","shitpost2"].filter(function(n){return ok.indexOf(n)<0});
 if(miss.length){var h=document.getElementById("hint");h.hidden=false;h.textContent="Eksik ya da yarım dosya: "+miss.join(".js, ")+".js";if(window.__errs&&window.__errs.length)h.textContent+="  ["+window.__errs[0]+"]";}},2500);</script>
 </body>
 </html>
