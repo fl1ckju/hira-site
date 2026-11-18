@@ -7,12 +7,12 @@
    elle yaz: [{ src: "photos/ornek.jpg", caption: "" }, …]. Yüzlerce kare olabilir; ekranda sınırlı sayıda çizilir. */
 const _dongu = (n, uzun, kay) => Array.from({ length: uzun }, (_, i) => ({ src: 'photos/photo' + String((i + kay) % n + 1).padStart(2, '0') + '.jpg', caption: '' }));
 window.CONTENT = {
-  title: "A STORY WORTH REMEMBERING",
+  title: "YİNE Mİ DOĞUM GÜNÜ?",
   name: "HIRA",
   date: "23.11.2026",
   /* AÇILIŞ SAYACI: 23:52 → 00:00 arasında alttan yükselen bantlı fotoğraflar (en fazla 9; sonradan değiştir) */
   introPhotos: ["photos/photo01.jpg", "photos/photo02.jpg", "photos/photo03.jpg", "photos/photo04.jpg", "photos/photo05.jpg", "photos/photo06.jpg", "photos/photo07.jpg", "photos/photo08.jpg", "photos/photo09.jpg"],
-  quote: "Bazı insanlar hayatımıza girer ve sıradan günleri bile unutulmaz kılar.",
+  quote: "15 yıldır buradasın. Hâlâ kimse nedenini bilmiyor.",
 
   /* MÜZİK: Sting — Shape of My Heart (değiştirme).
      Önce yerel dosya denenir: audio/shape-of-my-heart.mp3 (kendi sahip olduğun MP3'ü bu isimle koy).
@@ -47,11 +47,11 @@ window.CONTENT = {
 
   /* BÖLÜM 04 — Mesaj kartları (more: karta dokununca açılan isteğe bağlı ek not) */
   messages: [
-    { text: "Yanında kendim olabildiğim için...", more: "Teşekkür ederim." },
-    { text: "Beni yargılamadan dinlediğin için...", more: "Teşekkür ederim." },
-    { text: "En sıradan anları bile güzelleştirdiğin için...", more: "Teşekkür ederim." },
-    { text: "Bazen tek kelime söylemeden bile beni anlayabildiğin için...", more: "Teşekkür ederim." },
-    { text: "Hayatıma kattığın bütün güzel anlar için...", more: "Teşekkür ederim." }
+    { text: "Mesajlarıma üç gün sonra döndüğün için…", more: "Tebrikler, sabır antrenmanı oldu." },
+    { text: "Dürtünce \"ne var?\" dediğin için…", more: "Cevap hâlâ aynı: hiçbir şey, seni darlıyorum." },
+    { text: "Son pasta dilimini \"tadına bakıyorum\" diye bitirdiğin için…", more: "Tadına baktığın şey dört dilimdi." },
+    { text: "Tek kelime etmeden göz devirebildiğin için…", more: "Yetenek olduğunu inkâr etmiyorum." },
+    { text: "Her tartışmada \"ben haklıyım\" yüzü yaptığın için…", more: "Haklı olmak zorunda değilsin ama çok deniyorsun." }
   ],
 
   /* BÖLÜM 04 — Cam kareler: her mesaj için bir fotoğraf (mesaj sayısı kadar). Prototip: photo03–photo07.
@@ -65,58 +65,31 @@ window.CONTENT = {
 
   /* SAHNE ARALARI: perdeler kapanırken ekranda beliren kısa film yazıları */
   intertitles: {
-    start: "Işıklar kısılıyor…",
-    c4: "Gece derinleşiyor…",
-    c45: "Makara dönüyor…",
-    c46: "Karanlık odada…",
-    c5: "Bir mektup bırakıldı…",
-    c6: "Son perde.",
-    c47: "Zamanın içinden geçiyoruz…",
-    c48: "Kareler hızlanıyor…",
-    c7: "Jenerik."
+    start: "Kemerler bağlansın, felaket yaklaşıyor…",
+    c4: "Dur, daha bitmedi…",
+    c45: "Makara dönüyor, sabrım dönmüyor…",
+    c46: "Karanlık oda: burada herkes kötü çıkar",
+    c5: "Mektup geldi. Spoiler: duygusal değil.",
+    c6: "Son perde. Pastaya yaklaşma, önce ben."
   },
-
-  /* YENİ — Hepsi Birden sahnesinin son satırı (üstünde, havuzdaki toplam kare sayısı büyük görünür) */
-  flash: { line: "kare. Hepsi bir hikâye." },
-
-  /* YENİ — Jenerik (finalde "Jenerik" düğmesiyle açılır). Satır: { role, name } · fotoğraf: { photo: true } · büyük yazı: { big } */
-  credits: [
-    { big: "A STORY WORTH REMEMBERING" },
-    { role: "Başrol", name: "HIRA" },
-    { photo: true },
-    { role: "Yardımcı Oyuncu", name: "Sıradan Günler" },
-    { role: "Görüntü Yönetmeni", name: "Telefon Galerisi" },
-    { photo: true },
-    { role: "Senaryo", name: "Hiçbir Plan Yapmadan" },
-    { role: "Müzik", name: "Sting · Shape of My Heart" },
-    { photo: true },
-    { role: "Özel Teşekkür", name: "Sana" },
-    { role: "Tarih", name: "23.11.2026" },
-    { big: "İyi ki doğdun Hira." }
-  ],
 
   /* BÖLÜM 05 — Mektup (her öğe bir paragraf; kendi anılarınla kişiselleştirebilirsin) */
   letter: {
-    to: "Sevgili Hira,",
+    to: "Hira,",
     paragraphs: [
-      "Seninle olunca kendimi toparlamak zorunda hissetmiyorum. Senin olduğun günler aklımda ayrı bir yerde duruyor. Doğum günün kutlu olsun, Hira."
+      "Bu mektuba üç kere oturdum. Üç kere de \"ya zaten biliyor, ne yazayım\" deyip kalktım. Dördüncüde pes ettim, işte buradasın.",
+      "15 olmuşsun. Resmî olarak \"büyüdüm\" diyebilirsin. Kimse inanmaz ama diyebilirsin. Son pasta dilimini hâlâ \"tadına bakıyorum\" diyerek bitiren birinin yaşla ilişkisi zaten karışık.",
+      "Mesaja üç gün sonra dönüyorsun, \"görüldü\" atıyorsun, dürtünce \"ne var?\" diyorsun. Sana ulaşmak, çekmeyen yerde sinyal aramak gibi. Yine de vazgeçmiyorum, çünkü inatçıyım. (Ve boşum.)",
+      "Dilek tutarken \"daha çok pasta\" deme. Yetmedi mi? Bu yaşta insan biraz sebze düşünür. Sebzeyi ben yerim, pastayı sen yersin, iş bölümü tamam.",
+      "Hediye yerine bu siteyi yaptım. Kaç saat harcadığımı sorma, söylemeyeceğim. Sadece bil ki bu site senin \"eline sağlık\" demen için yapıldı. Bekliyorum. Kahveyi de sen ısmarlıyorsun."
     ],
-    /* Eski uzun mektup (kendi metnini yazarken kullanabilirsin):
-      "Bu mektuba kaç kere baştan başladım, saymadım. Sana söylemek istediklerim büyük cümlelere sığmıyor çünkü; küçük, gündelik şeyler bunlar.",
-      "Seninle olunca kendimi toparlamak zorunda hissetmiyorum. Saçma bir şey söylesem de, hiç konuşmasam da, keyfim yokken de aynı rahatlıkla yanındayım. Bunun ne kadar nadir olduğunu zaman geçtikçe daha iyi anlıyorum.",
-      "Bazen sen daha bir şey söylemeden ne düşündüğünü anlıyorum. Bazen de tam tersi oluyor: ben anlatamadığımda sen anlıyorsun. Bunun için teşekkür etmek bile az kalıyor ama yine de teşekkür ederim.",
-      "Günlerin çoğu birbirine benziyor, biliyorsun. Ama senin olduğun günler aklımda ayrı bir yerde duruyor. Çoğu hatırlanacak kadar büyük şeyler değildi, yine de hepsini hatırlıyorum.",
-      "On beş yaşına giriyorsun. Önünde daha çok yol var ve ben o yolun bir kısmında yanında olabildiğim için kendimi şanslı sayıyorum. Yorulursan, ki yorulacaksın, bana yaz ya da ara. Saat kaç olursa olsun.",
-      "Bu siteyi sana bir şey vermek için değil, sana ne kadar önemli olduğunu bir yere yazıp orada bırakmak için yaptım. Açıp açıp tekrar bakabilesin diye.",
-      "Doğum günün kutlu olsun, Hira. Bu yaş sana sakin, sıcak ve tam kendin gibi geçsin."
-    */
-    sign: "Hep yanında olan arkadaşın"
+    sign: "Sabrını tüketen arkadaşın"
   },
 
   /* BÖLÜM 06 — Final */
   finale: {
     photo: { src: "photos/photo12.jpg", caption: "" },
-    line1: "İyi ki doğdun Hira.",
-    line2: "İyi ki yollarımız kesişmiş."
+    line1: "Doğdun. Tebrikler, kimse sormadı ama oldu.",
+    line2: "Pastayı bitirme, bana da bırak."
   }
 };
