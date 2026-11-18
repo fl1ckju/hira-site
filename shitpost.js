@@ -1,5 +1,5 @@
-/* shitpost.js (1/2) — ortak yardımcılar · açılış temizliği · köşe animasyonları · Aranıyor · Ruh Hali · makara efektleri · sistem mesajı · tarama · hediye
-   shitpost2.js bunun yardımcılarını kullanır: önce bu dosya, sonra shitpost2.js yüklenir. app.js, finale.js ve extra.js'ten SONRA gelir.
+/* shitpost.js (1/3) — ortak yardımcılar · açılış temizliği · köşe animasyonları · Aranıyor · Ruh Hali
+   shitpost2.js ve shitpost3.js bunun yardımcılarını kullanır: önce bu dosya yüklenir. app.js, finale.js ve extra.js'ten SONRA gelir.
    Tüm yazılar aşağıdaki sabitlerde: istediğin gibi düzenle. */
 (() => {
 'use strict';
@@ -12,7 +12,6 @@ const yeniden = (el, cls) => { el.classList.remove(cls); void el.offsetWidth; el
 const guvenli = f => { try { f(); } catch (e) { console.error('shitpost.js:', e); } };
 
 /* ======================= AYARLAR ======================= */
-const PUNCH = 'saka saka orospu cocu';   /* tarama sahnesinin son cümlesi */
 const BASLA_YAZISI = 'Başla';            /* açılış düğmesi */
 const WANTED_GEREKEN = 2;                /* "Devam et" için eklenmesi gereken yeni suç sayısı */
 
@@ -40,31 +39,6 @@ const SUCLAR = [
   'Göz devirme sanatını resmî eğitimle geliştirmek', 'Bu siteyi görünce "hmm" demek'
 ];
 const DAMGA = ['YAKALANDIN!', 'HÂLÂ FİRARİ', '15 YAŞINDA', 'TEHLİKELİ', 'ÇOK DARLANMIŞ', 'SABIKALI'];
-
-/* sistem mesajı: 3 mesaj (eskiden 6) → 2 dokunuş + yeniden başlatma */
-const WIN = [
-  ['❌', 'Hira.exe çalışmayı durdurdu.\nSebep: 15 yaşına girme işlemi (maalesef) başarılı.'],
-  ['⚠️', 'Uyarı: Belleğin %99\'u pasta.\nDaha fazlası için lütfen biraz utancını sil.'],
-  ['❓', 'Hata 0x23112011:\nBu kadar büyüme beklenmiyordu. Sistem şaşkın.']
-];
-const WIN_SON = ['🎉', 'Hira 15.0 yüklendi.\nYeni sürüm: +1 yaş, -0 olgunluk, +∞ orospu çocukluğu süresi.'];
-
-const HEDIYE = [
-  ['🧦', 'Tek bir çorap', 'Diğerini ben sakladım.'], ['🦆', 'Boy boy lastik ördek', 'Kullanım amacı: yok. Moral desteği: var.'],
-  ['🥔', 'Üzerinde "HİRA" yazan patates çuvalı', 'Dayanıklı. Ağlatmaz. (Soyarken hariç.)'], ['🪴', 'Kendi kendine solan bir bitki', 'Sorumluluk dersi. Ücretsiz.'],
-  ['📦', 'Boş bir kutu', 'Çocuklar bunu çok sever, deniyoruz.'], ['☕', 'Ömür boyu kahve aboneliği', 'Uyku payı dahil değildir.'],
-  ['🚀', 'Mars\'ta bir arsa', 'Tapu bende. Güven bende.']
-];
-const SITE = ['🌐', 'Bu web sitesi', 'Kargo bedava · iade yok · hediye bu kadar.'];
-
-/* tarama terminali: yavaş yazılır, her hata bir öncekinden daha saçma */
-const HATA_SATIRLARI = [
-  ['Hafıza taranıyor…', 'HATA: "Sabır" klasörü boş. İçinde sadece "5 dakika daha" yazan bir not var.'],
-  ['Olgunluk modülü aranıyor…', 'HATA 404: Olgunluk bulunamadı. Son görülme: hiç.'],
-  ['Göz devirme motoru test ediliyor…', 'UYARI: Motor %400 verimle çalışıyor. Soğutma önerilir.'],
-  ['Pasta yakıt seviyesi ölçülüyor…', 'KRİTİK: Depo ağzına kadar dolu. Kimse dokunamaz.'],
-  ['Genel zekâ taranıyor…', 'TAMAM: Sorun yok. Zaten en büyük sorun bu.']
-];
 
 /* ======================= Fotoğraf yardımcıları ======================= */
 const HAVUZ = (() => {
@@ -216,57 +190,7 @@ function sahneMood() {
   };
 }
 
-/* ======================= 2) MAKARA: kareler önce hafifçe döner, sonra sistem mesajı çıkar; kareler rastgele 360° çevrilir ======================= */
-function sahneMakara() {
-  const ch45 = $('#ch45'), pj = $('#projector'); if (!ch45 || !pj) return;
-  let zaman = 0, ilk = true;
-  const cevir = () => {
-    if (ch45.hidden || document.hidden) return;
-    $$('.cell', pj).forEach(c => {
-      const r = c.getBoundingClientRect(); if (r.right < 0 || r.left > innerWidth || Math.random() > 0.16) return;
-      c.classList.remove('shx-f360'); void c.offsetWidth; c.classList.add('shx-f360');
-      c.addEventListener('animationend', () => c.classList.remove('shx-f360'), { once: true });
-    });
-  };
-  acilinca(ch45, () => {
-    pj.classList.add('shx-spin');
-    setTimeout(() => {
-      pj.classList.remove('shx-spin');
-      const win = $('#shx-win'); if (win && win.hidden) { win.hidden = false; yeniden(win, 'shx-popin'); setTimeout(() => win.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300); }
-    }, reduced ? 700 : (ilk ? 4800 : 1200));
-    ilk = false; clearInterval(zaman); if (!reduced) zaman = setInterval(cevir, 520);
-  });
-}
-
-/* ======================= 3) SİSTEM MESAJI: Hira.exe penceresi — 2 dokunuşta yeniden başlar ======================= */
-function sahneWin() {
-  const s = blok('shx-win', 'Sistem Mesajı', '',
-    '<div class="shx-win" id="spWin"><div class="shx-wbar"><span>Hira.exe</span><button type="button" id="winX" aria-label="Kapat">✕</button></div>' +
-    '<div class="shx-wbody"><span class="shx-wico" id="winIco"></span><p id="winMsg"></p></div>' +
-    '<div class="shx-wprog" id="winProg" hidden><i></i></div>' +
-    '<div class="shx-wbtns" id="winBtns"><button type="button">Tamam</button><button type="button">İptal</button><button type="button">Yeniden dene</button></div></div>');
-  const to46 = $('#to46'); if (!to46) { console.warn('shitpost.js: #to46 yok'); return; }
-  to46.before(s); s.hidden = true; /* makara dönüşünden sonra açılır (sahneMakara) */
-  const win = $('#spWin'), ico = $('#winIco'), msg = $('#winMsg'), prog = $('#winProg'), bar = prog.firstElementChild, btns = $$('#winBtns button');
-  let k = 1, mesgul = false;
-  const goster = (e, t) => { ico.textContent = e; msg.textContent = t; };
-  goster(...WIN[0]);
-  const ilerle = () => {
-    if (mesgul) return; vib(12);
-    if (k < WIN.length) { goster(...WIN[k++]); return; }
-    mesgul = true; btns.forEach(b => { b.disabled = true; }); goster('⏳', 'Hira.exe yeniden başlatılıyor…');
-    prog.hidden = false; bar.style.transition = 'none'; bar.style.width = '0%'; void bar.offsetWidth;
-    bar.style.transition = 'width ' + (reduced ? .3 : 2.4) + 's steps(14)'; bar.style.width = '100%';
-    setTimeout(() => {
-      prog.hidden = true; goster(...WIN_SON); btns.forEach(b => { b.disabled = false; }); mesgul = false; k = 0; vib([20, 60, 30]);
-      if (FX.burst) { const r = win.getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top + 40); }
-    }, reduced ? 400 : 2600);
-  };
-  btns.forEach(b => { b.onclick = ilerle; });
-  $('#winX').onclick = () => { if (mesgul) return; goster('🚫', 'Bu pencere doğum günü boyunca kapatılamaz.\n(Hata 0x1511)'); yeniden(win, 'shx-shake'); vib([30, 40, 30]); };
-}
-
-/* ======================= 4) HEDİYE: "Hira'ya ne alsak?" — son söz site ======================= */
-function sahneHediye() {
-  const s = blok('shx-gift', 'Hira\'ya Ne Alsak?', '',
-    '<div class="shx-gift" id="giftNow"><span id="giftEmoji">🎁</span><b id="giftTitle">Hira\'ya ne
+/* ======================= Başlat ======================= */
+[sahneGiris, sahneOrtam, sahneWanted, sahneMood].forEach(guvenli);
+(window.__ok = window.__ok || []).push('shitpost');
+})();
