@@ -1,0 +1,71 @@
+/* shitpost.css — shitpost.js sahneleri için stiller. style.css ve extra.css'ten SONRA yüklenir. */
+.shx{max-width:560px;margin:4.5rem auto 2.5rem;padding:0 1.1rem;text-align:center;color:var(--ivory)}
+.shx>h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.5rem,6vw,2.1rem);color:var(--gold);margin:0 0 .3rem}
+.shx-sub{color:var(--beige);font-size:.95rem;margin:0 0 1.1rem}
+.shx small{color:var(--beige);letter-spacing:.06em}
+.shx .btn{margin-top:1.1rem}
+.shx-card{background:linear-gradient(160deg,#14233f,#0e1a30);border:1px solid #c9a96a44;border-radius:14px;padding:1rem;box-shadow:0 14px 40px #0009}
+.shx-img{display:block;width:100%;max-width:240px;aspect-ratio:4/5;object-fit:cover;margin:0 auto .8rem;border-radius:8px;filter:sepia(.22) contrast(1.05) saturate(.92)}
+.shx-label{font-size:1.25rem;margin:.2rem 0 .5rem;min-height:2.6em}
+.shx-bar{height:10px;border-radius:9px;background:#ffffff14;overflow:hidden;margin:.4rem 0 .3rem}
+.shx-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width .9s cubic-bezier(.2,.8,.2,1)}
+/* aranıyor posteri */
+.shx-poster{position:relative;cursor:pointer;background:#e6d5ac;color:#2a1c0c;padding:1.1rem 1rem 1.3rem;border:3px double #5a4220;box-shadow:0 18px 50px #000b;transform:rotate(-1.2deg)}
+.shx-poster .shx-img{max-width:220px;filter:grayscale(1) sepia(.5) contrast(1.1);border:3px solid #2a1c0c}
+.shx-ph{display:block;font-size:2.3rem;letter-spacing:.18em;font-family:var(--serif)}
+.shx-ph2{margin:.1rem 0 .4rem;font-size:1.5rem;letter-spacing:.3em;font-weight:700}
+.shx-poster ul{list-style:none;margin:0;padding:0;font-size:.95rem;line-height:1.5}
+.shx-poster li::before{content:"• "}
+.shx-stamp{position:absolute;right:6%;top:44%;border:4px solid #a3281f;color:#a3281f;padding:.15rem .6rem;font-weight:800;letter-spacing:.12em;transform:rotate(-14deg);background:#e6d5ac99}
+.shx-hit{animation:shx-hit .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes shx-hit{from{transform:rotate(-14deg) scale(2.6);opacity:0}to{transform:rotate(-14deg) scale(1);opacity:1}}
+/* pencere */
+.shx-win{background:#c9c9c9;color:#111;border:2px solid #fff;border-right-color:#555;border-bottom-color:#555;text-align:left;box-shadow:0 14px 40px #000a}
+.shx-wbar{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#10206e,#4a78d0);color:#fff;padding:.3rem .5rem;font-weight:700}
+.shx-wbar button{background:#c9c9c9;border:1px solid #555;width:1.6rem;height:1.5rem;line-height:1;cursor:pointer}
+.shx-wbody{display:flex;gap:.9rem;align-items:center;padding:1.2rem .9rem;min-height:5.5rem}
+.shx-wico{font-size:2.2rem}.shx-wbody p{margin:0;white-space:pre-line;line-height:1.4}
+.shx-wprog{margin:0 .9rem .8rem;height:16px;border:2px inset #777;background:#fff}.shx-wprog i{display:block;height:100%;width:0;background:#10206e}
+.shx-wbtns{display:flex;justify-content:center;gap:.5rem;padding:0 .8rem 1rem}
+.shx-wbtns button{background:#c9c9c9;border:2px solid #fff;border-right-color:#555;border-bottom-color:#555;padding:.35rem .9rem;cursor:pointer;color:#111}
+.shx-wbtns button:disabled{opacity:.6}
+/* darlama */
+.shx-stage{position:relative;min-height:240px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:.8rem}
+.shx-big{position:relative;z-index:2;width:128px;height:128px;border-radius:50%;border:0;cursor:pointer;font-weight:800;letter-spacing:.08em;color:#2a0d0d;background:radial-gradient(circle at 35% 30%,#ff8a7a,#c62c22 70%);box-shadow:0 8px 0 #7a150f,0 16px 30px #000a}
+.shx-big:active{transform:translateY(6px);box-shadow:0 2px 0 #7a150f,0 8px 18px #000a}
+.shx-pop{position:absolute;left:50%;bottom:70px;width:84px;margin-left:-42px;border-radius:6px;z-index:1;pointer-events:none;animation:shx-pop 1.4s ease-out forwards}
+@keyframes shx-pop{from{transform:translate(0,0) rotate(0) scale(.4);opacity:1}to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1);opacity:0}}
+.shx-quote{min-height:3.2em;font-size:1.15rem;font-style:italic;margin:.6rem 0 .3rem}
+/* hediye */
+.shx-gift{background:#14233f;border:1px solid #c9a96a44;border-radius:14px;padding:1.2rem 1rem;display:flex;flex-direction:column;gap:.35rem;align-items:center;min-height:9rem;justify-content:center}
+.shx-gift span{font-size:2.6rem}.shx-gift b{font-size:1.25rem;font-weight:600}
+.shx-gift.final{border-color:var(--gold);box-shadow:0 0 40px #c9a96a55}
+.shx-glist{list-style:none;margin:.8rem 0 0;padding:0;font-size:.9rem;color:var(--beige);line-height:1.6}
+.shx-glist span{text-decoration:line-through}
+/* hata terminali */
+.shx-term{background:#05080f;border:1px solid #2f7a4a88;border-radius:8px;padding:.8rem .9rem;text-align:left;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;line-height:1.55;color:#7dffa6;min-height:9rem;max-height:16rem;overflow:auto}
+.shx-term p{margin:0;white-space:pre-wrap}.shx-bad{color:#ff7a6e}
+.shx-punch{margin-top:.5rem!important;font-size:1.35rem;color:var(--gold);font-weight:700;letter-spacing:.02em}
+/* video */
+.shx-video video{width:100%;max-height:72vh;border-radius:10px;background:#000;box-shadow:0 18px 50px #000b}
+.shx-note{color:#ff9a8f;font-size:.85rem;margin-top:.6rem}
+/* ortak animasyonlar */
+.shx-flash{animation:shx-flash .6s}@keyframes shx-flash{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.shx-popin{animation:shx-popin .5s cubic-bezier(.2,1.5,.4,1)}@keyframes shx-popin{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.shx-shake{animation:shx-shake .4s}@keyframes shx-shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.shx *{animation:none!important;transition:none!important}}
+
+/* sayaç (gizli yumurta) */
+.shx-chip{position:fixed;z-index:60;top:calc(.5rem + env(safe-area-inset-top));left:.6rem;display:flex;align-items:center;gap:.45rem;padding:.25rem .55rem;border-radius:99px;background:#0b1426cc;border:1px solid #c9a96a33;color:var(--beige);font:.62rem/1.2 ui-monospace,Menlo,Consolas,monospace;opacity:.72;pointer-events:none;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.shx-chip[hidden]{display:none}
+.shx-chip i{display:block;width:34px;height:5px;border-radius:5px;background:#ffffff1a;overflow:hidden}
+.shx-chip u{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#ff6a5c);transition:width .3s}
+.shx-chip.hot{color:#ffb3a8;border-color:#ff6a5c88}
+.shx-tik{animation:shx-tik .25s}@keyframes shx-tik{50%{transform:scale(1.07)}}
+
+/* DEVAM ET düzeltmesi (Küçük Anlar): galeri yukarı, düğme tam görünür ve tıklanır */
+#story #ch3{padding-bottom:calc(7.5rem + env(safe-area-inset-bottom))}
+#story #ch3 #gallery{transform:translateY(-16px);margin-bottom:-16px;padding-bottom:.4rem}
+#story #ch3 .holdhint{margin-bottom:1.1rem}
+#story #ch3 #to4{position:relative;z-index:7;margin:1.6rem auto 0;min-height:56px;padding:0 1.6rem}
+#gallery .shx{align-self:center;width:100%;margin:.4rem auto;padding:0}
