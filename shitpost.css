@@ -1,71 +1,135 @@
-/* shitpost.css — shitpost.js sahneleri için stiller. style.css ve extra.css'ten SONRA yüklenir. */
+/* shitpost.css (1/2) — pembe tema · köşe animasyonları · Aranıyor · Ruh Hali · sistem mesajı · tarama · hediye · galeri · makara efektleri
+   style.css ve extra.css'ten SONRA yüklenir. Palet: #fe4f8a · #e096a7 · #ff69ab (lacivert zemin korunur). */
+:root{--pk1:#fe4f8a;--pk2:#e096a7;--pk3:#ff69ab}
+.sound{display:none!important}
 .shx{max-width:560px;margin:4.5rem auto 2.5rem;padding:0 1.1rem;text-align:center;color:var(--ivory)}
-.shx>h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.5rem,6vw,2.1rem);color:var(--gold);margin:0 0 .3rem}
-.shx-sub{color:var(--beige);font-size:.95rem;margin:0 0 1.1rem}
+.shx[hidden],.shx [hidden]{display:none!important}
+.shx>h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.6rem,6.4vw,2.3rem);color:var(--pk3);margin:0 0 .3rem;text-shadow:0 0 24px #fe4f8a55}
+.shx-sub{color:var(--beige);font-size:1rem;margin:0 0 1.1rem}
 .shx small{color:var(--beige);letter-spacing:.06em}
-.shx .btn{margin-top:1.1rem}
-.shx-card{background:linear-gradient(160deg,#14233f,#0e1a30);border:1px solid #c9a96a44;border-radius:14px;padding:1rem;box-shadow:0 14px 40px #0009}
-.shx-img{display:block;width:100%;max-width:240px;aspect-ratio:4/5;object-fit:cover;margin:0 auto .8rem;border-radius:8px;filter:sepia(.22) contrast(1.05) saturate(.92)}
-.shx-label{font-size:1.25rem;margin:.2rem 0 .5rem;min-height:2.6em}
+.shx .btn{margin-top:1.1rem;border-color:var(--pk3)}
+.shx .btn:hover{background:var(--pk3);color:#2a0d18}
+.shx-card{background:linear-gradient(160deg,#14233f,#0e1a30);border:1px solid #ff69ab55;border-radius:14px;padding:1rem;box-shadow:0 14px 40px #0009,0 0 30px #fe4f8a1f}
+.shx-img{display:block;width:100%;max-width:240px;aspect-ratio:4/5;object-fit:cover;margin:0 auto .8rem;border-radius:8px;filter:sepia(.15) contrast(1.05) saturate(1)}
+.shx-label{font-size:1.3rem;margin:.2rem 0 .5rem;min-height:2.6em}
 .shx-bar{height:10px;border-radius:9px;background:#ffffff14;overflow:hidden;margin:.4rem 0 .3rem}
-.shx-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width .9s cubic-bezier(.2,.8,.2,1)}
-/* aranıyor posteri */
-.shx-poster{position:relative;cursor:pointer;background:#e6d5ac;color:#2a1c0c;padding:1.1rem 1rem 1.3rem;border:3px double #5a4220;box-shadow:0 18px 50px #000b;transform:rotate(-1.2deg)}
-.shx-poster .shx-img{max-width:220px;filter:grayscale(1) sepia(.5) contrast(1.1);border:3px solid #2a1c0c}
-.shx-ph{display:block;font-size:2.3rem;letter-spacing:.18em;font-family:var(--serif)}
-.shx-ph2{margin:.1rem 0 .4rem;font-size:1.5rem;letter-spacing:.3em;font-weight:700}
-.shx-poster ul{list-style:none;margin:0;padding:0;font-size:.95rem;line-height:1.5}
-.shx-poster li::before{content:"• "}
-.shx-stamp{position:absolute;right:6%;top:44%;border:4px solid #a3281f;color:#a3281f;padding:.15rem .6rem;font-weight:800;letter-spacing:.12em;transform:rotate(-14deg);background:#e6d5ac99}
+.shx-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pk2),var(--pk1));transition:width .9s cubic-bezier(.2,.8,.2,1)}
+
+/* ---------- KÖŞE ANİMASYONLARI ---------- */
+.shx-corner{position:fixed;inset:0;pointer-events:none;z-index:4;overflow:hidden}
+body.locked .shx-corner{display:none}
+.shx-gnome{position:absolute;left:0;bottom:0;width:80px;transform:translateY(110%);animation:shx-peek 36s ease-in-out 9s infinite}
+.shx-gnome svg{display:block;width:100%;height:auto;overflow:visible}
+.shx-gnome .g-arm{transform-origin:56px 88px;animation:shx-wave .55s ease-in-out infinite alternate}
+.shx-gnome .gl{animation:shx-glow 2.4s ease-in-out infinite;transform-origin:16px 98px}
+@keyframes shx-peek{0%,100%{transform:translateY(110%)}5%{transform:translateY(34%)}9%{transform:translateY(34%)}13%{transform:translateY(2%)}28%{transform:translateY(2%)}33%{transform:translateY(110%)}}
+@keyframes shx-wave{from{transform:rotate(-8deg)}to{transform:rotate(26deg)}}
+@keyframes shx-glow{50%{opacity:.55;transform:scale(1.15)}}
+.shx-petals{position:absolute;top:0;right:0;width:34%;height:100%}
+.shx-petals i{position:absolute;top:-6vh;left:var(--x);width:9px;height:13px;border-radius:70% 0 70% 0;background:linear-gradient(135deg,var(--pk3),var(--pk1));opacity:.42;transform:scale(var(--s));animation:shx-fall var(--d) linear var(--w) infinite}
+@keyframes shx-fall{0%{transform:translate3d(0,0,0) rotate(0) scale(var(--s))}50%{transform:translate3d(-26px,56vh,0) rotate(180deg) scale(var(--s))}100%{transform:translate3d(10px,112vh,0) rotate(360deg) scale(var(--s))}}
+.shx-twk{position:absolute;left:0;top:0;width:26px;height:100%}
+.shx-twk b{position:absolute;left:8px;top:var(--y);width:9px;height:9px;background:var(--pk3);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);opacity:0;animation:shx-twinkle 3.2s ease-in-out var(--w) infinite}
+@keyframes shx-twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:.95;transform:scale(1)}}
+
+/* ---------- ARANIYOR (yeni tasarım) ---------- */
+.shx-poster{position:relative;background:linear-gradient(170deg,#fff3f8,#f6dfe8);color:#2a1220;padding:1.3rem .8rem 1.4rem;border:3px solid var(--pk1);border-radius:6px;box-shadow:0 0 0 6px #0b1426,0 0 0 8px #ff69ab88,0 24px 60px #000b;text-align:center}
+.shx-ban span{display:block;font:800 clamp(2.4rem,12vw,3.6rem)/1 var(--serif);letter-spacing:.14em;padding-left:.14em;color:var(--pk1);text-shadow:2px 2px 0 #2a1220}
+.shx-ban small{display:block;font-size:1.1rem;font-weight:700;letter-spacing:.06em;color:#6a2a42;margin:.35rem 0 .8rem}
+.shx-wtrio{display:flex;gap:.9rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.7rem .3rem 1.1rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.shx-wtrio::-webkit-scrollbar{display:none}
+.shx-wc{flex:0 0 min(74%,260px);scroll-snap-align:center;margin:0;cursor:pointer;background:#fff;padding:9px 9px 12px;border:2px solid #2a1220;box-shadow:5px 5px 0 var(--pk1);rotate:-1.6deg;-webkit-tap-highlight-color:transparent}
+.shx-wc:nth-child(2){rotate:1.4deg}.shx-wc:nth-child(3){rotate:-.8deg}
+.shx-wph{position:relative}
+.shx-wph img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(.85) contrast(1.1);margin:0;max-width:none;border-radius:0}
+.shx-wtape{position:absolute;top:-14px;left:50%;width:38%;height:20px;margin-left:-19%;background:#ff69abbb;rotate:-3deg;box-shadow:0 1px 3px #0005}
+.shx-wc b{display:block;margin:.6rem 0 .25rem;font-size:1.2rem;letter-spacing:.1em;color:#2a1220}
+.shx-wc figcaption{font-size:1.12rem;line-height:1.35;font-weight:700;color:#4a1f33;min-height:3.1em}
+.shx-file{position:relative;text-align:left;background:#fff;border:2px dashed #2a1220;padding:.9rem 1rem 1.1rem;margin-top:.3rem}
+.shx-file h4{display:inline-block;font:800 1.2rem var(--serif);letter-spacing:.14em;color:#2a1220;margin:0 0 .6rem;border-bottom:4px solid var(--pk3)}
+.shx-file ol{margin:0;padding-left:1.6rem;font-size:1.15rem;line-height:1.45;font-weight:700;color:#2a1220}
+.shx-file li{margin:.4rem 0;padding:.1rem .3rem}
+.shx-file li.yeni{background:linear-gradient(90deg,#ff69ab66,transparent);animation:shx-flash .6s}
+.shx-stamp{position:absolute;right:3%;bottom:8%;border:4px solid #c4124f;color:#c4124f;padding:.1rem .6rem;font-weight:900;font-size:1.1rem;letter-spacing:.1em;rotate:-14deg;background:#ffffffcc;pointer-events:none}
+.shx-stamp:empty{display:none}
 .shx-hit{animation:shx-hit .45s cubic-bezier(.2,1.6,.4,1)}
-@keyframes shx-hit{from{transform:rotate(-14deg) scale(2.6);opacity:0}to{transform:rotate(-14deg) scale(1);opacity:1}}
-/* pencere */
-.shx-win{background:#c9c9c9;color:#111;border:2px solid #fff;border-right-color:#555;border-bottom-color:#555;text-align:left;box-shadow:0 14px 40px #000a}
-.shx-wbar{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#10206e,#4a78d0);color:#fff;padding:.3rem .5rem;font-weight:700}
-.shx-wbar button{background:#c9c9c9;border:1px solid #555;width:1.6rem;height:1.5rem;line-height:1;cursor:pointer}
+@keyframes shx-hit{from{scale:2.6;opacity:0}to{scale:1;opacity:1}}
+.shx-need{margin:.9rem 0 0;font-weight:800;font-size:1.1rem;color:#7a1640}
+
+/* ---------- RUH HALİ ÖLÇER (zengin) ---------- */
+.shx-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:.9rem}
+.shx-chp{border:1px solid #ff69ab88;background:#14233f;border-radius:99px;padding:.45rem 1rem;font-size:1.02rem;min-height:44px;color:var(--ivory);transition:.25s}
+.shx-chp span{margin-right:.35rem}
+.shx-chp.on{background:linear-gradient(135deg,var(--pk1),var(--pk3));color:#2a0d18;border-color:transparent;font-weight:700;box-shadow:0 0 18px #fe4f8a66}
+.shx-gauge{display:block;width:min(270px,84%);margin:0 auto .1rem;overflow:visible}
+.shx-gauge .g0,.shx-gauge .g1{fill:none;stroke-width:9;stroke-linecap:round}
+.shx-gauge .g0{stroke:#ffffff1a}
+.shx-gauge .g1{stroke:var(--pk3);stroke-dasharray:0 100;transition:stroke-dasharray .45s ease-out;filter:drop-shadow(0 0 5px var(--pk1))}
+.shx-gauge text{fill:var(--ivory);font:700 15px var(--serif)}
+.shx-mstats{display:grid;gap:.35rem;margin:.5rem 0 .2rem;text-align:left}
+.shx-mrow{display:grid;grid-template-columns:7.4em 1fr 3em;align-items:center;gap:.5rem;font-size:.95rem;color:var(--beige)}
+.shx-mrow .shx-bar{margin:0}.shx-mrow small{text-align:right;color:var(--pk3)}
+.shx-mnote{font-style:italic;color:var(--beige);min-height:1.7em;margin:.5rem 0 0}
+.shx-hist{list-style:none;display:flex;gap:.4rem;justify-content:center;margin:.8rem 0 0;padding:0;flex-wrap:wrap}
+.shx-hist li{border:1px solid #ff69ab55;border-radius:99px;padding:.15rem .65rem;font-size:.88rem;color:var(--beige)}
+
+/* ---------- SİSTEM MESAJI (Hira.exe) ---------- */
+.shx-win{background:#c9c9c9;color:#111;border:2px solid #fff;border-right-color:#555;border-bottom-color:#555;text-align:left;box-shadow:0 14px 40px #000a,0 0 30px #fe4f8a33}
+.shx-wbar{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#8a1f4d,var(--pk1));color:#fff;padding:.3rem .5rem;font-weight:700}
+.shx-wbar button{background:#c9c9c9;border:1px solid #555;width:1.6rem;height:1.5rem;line-height:1;cursor:pointer;color:#111}
 .shx-wbody{display:flex;gap:.9rem;align-items:center;padding:1.2rem .9rem;min-height:5.5rem}
-.shx-wico{font-size:2.2rem}.shx-wbody p{margin:0;white-space:pre-line;line-height:1.4}
-.shx-wprog{margin:0 .9rem .8rem;height:16px;border:2px inset #777;background:#fff}.shx-wprog i{display:block;height:100%;width:0;background:#10206e}
-.shx-wbtns{display:flex;justify-content:center;gap:.5rem;padding:0 .8rem 1rem}
-.shx-wbtns button{background:#c9c9c9;border:2px solid #fff;border-right-color:#555;border-bottom-color:#555;padding:.35rem .9rem;cursor:pointer;color:#111}
+.shx-wico{font-size:2.2rem}.shx-wbody p{margin:0;white-space:pre-line;line-height:1.4;font-size:1.05rem}
+.shx-wprog{margin:0 .9rem .8rem;height:16px;border:2px inset #777;background:#fff}.shx-wprog i{display:block;height:100%;width:0;background:var(--pk1)}
+.shx-wbtns{display:flex;justify-content:center;gap:.5rem;padding:0 .8rem 1rem;flex-wrap:wrap}
+.shx-wbtns button{background:#c9c9c9;border:2px solid #fff;border-right-color:#555;border-bottom-color:#555;padding:.4rem .9rem;cursor:pointer;color:#111;min-height:40px}
 .shx-wbtns button:disabled{opacity:.6}
-/* darlama */
-.shx-stage{position:relative;min-height:240px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:.8rem}
-.shx-big{position:relative;z-index:2;width:128px;height:128px;border-radius:50%;border:0;cursor:pointer;font-weight:800;letter-spacing:.08em;color:#2a0d0d;background:radial-gradient(circle at 35% 30%,#ff8a7a,#c62c22 70%);box-shadow:0 8px 0 #7a150f,0 16px 30px #000a}
-.shx-big:active{transform:translateY(6px);box-shadow:0 2px 0 #7a150f,0 8px 18px #000a}
-.shx-pop{position:absolute;left:50%;bottom:70px;width:84px;margin-left:-42px;border-radius:6px;z-index:1;pointer-events:none;animation:shx-pop 1.4s ease-out forwards}
-@keyframes shx-pop{from{transform:translate(0,0) rotate(0) scale(.4);opacity:1}to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1);opacity:0}}
-.shx-quote{min-height:3.2em;font-size:1.15rem;font-style:italic;margin:.6rem 0 .3rem}
-/* hediye */
-.shx-gift{background:#14233f;border:1px solid #c9a96a44;border-radius:14px;padding:1.2rem 1rem;display:flex;flex-direction:column;gap:.35rem;align-items:center;min-height:9rem;justify-content:center}
-.shx-gift span{font-size:2.6rem}.shx-gift b{font-size:1.25rem;font-weight:600}
-.shx-gift.final{border-color:var(--gold);box-shadow:0 0 40px #c9a96a55}
-.shx-glist{list-style:none;margin:.8rem 0 0;padding:0;font-size:.9rem;color:var(--beige);line-height:1.6}
+
+/* ---------- HEDİYE ---------- */
+.shx-gift{background:#14233f;border:1px solid #ff69ab55;border-radius:14px;padding:1.2rem 1rem;display:flex;flex-direction:column;gap:.35rem;align-items:center;min-height:8rem;justify-content:center}
+.shx-gift span{font-size:2.6rem}.shx-gift b{font-size:1.3rem;font-weight:600}
+.shx-gift small:empty{display:none}
+.shx-gift.final{border-color:var(--pk3);box-shadow:0 0 40px #fe4f8a66}
+.shx-glist{list-style:none;margin:.8rem 0 0;padding:0;font-size:.95rem;color:var(--beige);line-height:1.6}
 .shx-glist span{text-decoration:line-through}
-/* hata terminali */
-.shx-term{background:#05080f;border:1px solid #2f7a4a88;border-radius:8px;padding:.8rem .9rem;text-align:left;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88rem;line-height:1.55;color:#7dffa6;min-height:9rem;max-height:16rem;overflow:auto}
-.shx-term p{margin:0;white-space:pre-wrap}.shx-bad{color:#ff7a6e}
-.shx-punch{margin-top:.5rem!important;font-size:1.35rem;color:var(--gold);font-weight:700;letter-spacing:.02em}
-/* video */
-.shx-video video{width:100%;max-height:72vh;border-radius:10px;background:#000;box-shadow:0 18px 50px #000b}
-.shx-note{color:#ff9a8f;font-size:.85rem;margin-top:.6rem}
-/* ortak animasyonlar */
+
+/* ---------- SİSTEM TARAMASI ---------- */
+.shx-term{background:#05080f;border:1px solid #ff69ab66;border-radius:8px;padding:.8rem .9rem;text-align:left;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92rem;line-height:1.6;color:#7dffa6;min-height:10rem;max-height:17rem;overflow:auto;box-shadow:0 0 26px #fe4f8a22}
+.shx-term p{margin:0;white-space:pre-wrap}.shx-bad{color:#ff8fb8}
+.shx-typing::after{content:"▌";margin-left:2px;animation:shx-blink .7s steps(2) infinite}
+@keyframes shx-blink{50%{opacity:0}}
+.shx-punch{margin-top:.5rem!important;font-size:1.35rem;color:var(--pk3);font-weight:700;letter-spacing:.02em}
+
+/* ---------- GALERİ (Küçük Anlar): yazısız, pembe cam çerçeveli yeni düzen ---------- */
+#gallery .pol span{display:none}
+#gallery .pol{background:linear-gradient(160deg,#fff7fb,#f4ecdc);border-radius:3px;padding:10px;box-shadow:0 0 0 1px #ff69ab66,0 18px 38px #000a,0 0 28px #fe4f8a24}
+#gallery .pol::before{content:"";position:absolute;top:-9px;left:50%;width:34%;height:16px;margin-left:-17%;background:#ff69abb3;rotate:-3deg;box-shadow:0 1px 3px #0005;z-index:2}
+#gallery .pol::after{content:"";position:absolute;right:7px;bottom:7px;width:16px;height:16px;border-right:3px solid var(--pk1);border-bottom:3px solid var(--pk1);opacity:.85}
+#gallery .pol:hover,#gallery .pol:focus-visible{box-shadow:0 0 0 2px var(--pk3),0 24px 46px #000b,0 0 40px #fe4f8a66}
+
+/* ---------- MAKARA: önce hafif dönüş, sonra rastgele 360° çevirme ---------- */
+.projector.shx-spin .cell{animation:shx-wob 1.1s ease-in-out infinite alternate}
+.projector.shx-spin .cell:nth-child(odd){animation-delay:-.5s}
+@keyframes shx-wob{from{transform:rotate(-7deg) scale(.97)}to{transform:rotate(7deg) scale(1.03)}}
+.cell.shx-f360{animation:shx-f360 .6s cubic-bezier(.3,.7,.3,1);z-index:2}
+@keyframes shx-f360{from{transform:perspective(520px) rotateY(0)}to{transform:perspective(520px) rotateY(360deg)}}
+
+/* ---------- ortak animasyonlar ---------- */
 .shx-flash{animation:shx-flash .6s}@keyframes shx-flash{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
 .shx-popin{animation:shx-popin .5s cubic-bezier(.2,1.5,.4,1)}@keyframes shx-popin{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
-.shx-shake{animation:shx-shake .4s}@keyframes shx-shake{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-@media (prefers-reduced-motion:reduce){.shx *{animation:none!important;transition:none!important}}
+.shx-shake{animation:shx-shake .4s}
+@keyframes shx-shake{20%{transform:translateX(calc(var(--amp,6px) * -1))}40%{transform:translateX(var(--amp,6px))}60%{transform:translateX(calc(var(--amp,6px) * -.7))}80%{transform:translateX(calc(var(--amp,6px) * .7))}}
+@media (prefers-reduced-motion:reduce){.shx *,.shx-corner *{animation:none!important;transition:none!important}.shx-corner{display:none}}
 
-/* sayaç (gizli yumurta) */
-.shx-chip{position:fixed;z-index:60;top:calc(.5rem + env(safe-area-inset-top));left:.6rem;display:flex;align-items:center;gap:.45rem;padding:.25rem .55rem;border-radius:99px;background:#0b1426cc;border:1px solid #c9a96a33;color:var(--beige);font:.62rem/1.2 ui-monospace,Menlo,Consolas,monospace;opacity:.72;pointer-events:none;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+/* ---------- sayaç (gizli yumurta) ---------- */
+.shx-chip{position:fixed;z-index:60;top:calc(.5rem + env(safe-area-inset-top));left:.6rem;display:flex;align-items:center;gap:.45rem;padding:.25rem .55rem;border-radius:99px;background:#0b1426cc;border:1px solid #ff69ab33;color:var(--beige);font:.62rem/1.2 ui-monospace,Menlo,Consolas,monospace;opacity:.72;pointer-events:none;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .shx-chip[hidden]{display:none}
 .shx-chip i{display:block;width:34px;height:5px;border-radius:5px;background:#ffffff1a;overflow:hidden}
-.shx-chip u{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#ff6a5c);transition:width .3s}
-.shx-chip.hot{color:#ffb3a8;border-color:#ff6a5c88}
+.shx-chip u{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pk3),var(--pk1));transition:width .3s}
+.shx-chip.hot{color:#ffb3d1;border-color:#fe4f8a88}
 .shx-tik{animation:shx-tik .25s}@keyframes shx-tik{50%{transform:scale(1.07)}}
 
-/* DEVAM ET düzeltmesi (Küçük Anlar): galeri yukarı, düğme tam görünür ve tıklanır */
+/* "Devam et" (Küçük Anlar): düğme tam görünür ve tıklanır */
 #story #ch3{padding-bottom:calc(7.5rem + env(safe-area-inset-bottom))}
-#story #ch3 #gallery{transform:translateY(-16px);margin-bottom:-16px;padding-bottom:.4rem}
 #story #ch3 .holdhint{margin-bottom:1.1rem}
 #story #ch3 #to4{position:relative;z-index:7;margin:1.6rem auto 0;min-height:56px;padding:0 1.6rem}
 #gallery .shx{align-self:center;width:100%;margin:.4rem auto;padding:0}
