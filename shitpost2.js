@@ -209,6 +209,6 @@ function sahneVideo() {
   new MutationObserver(goster).observe(wish, { attributes: true, attributeFilter: ['class'] }); goster();
 }
 
-[sahneTunel, sahneKaranlik, sahneDarla, sahneCerceve, sahneVideo].forEach(guvenli);
+[sahneTunel, sahneKaranlik, sahneDarla, sahneVideo].forEach(guvenli); /* sahneCerceve (pasta çerçevesi) bilerek çalıştırılmıyor */
 (window.__ok = window.__ok || []).push('shitpost2');
 })();
