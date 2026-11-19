@@ -48,7 +48,7 @@ function sahneMakara() {
     pj.classList.add('shx-spin');
     setTimeout(() => {
       pj.classList.remove('shx-spin');
-      const win = $('#shx-win'); if (win && win.hidden) { win.hidden = false; yeniden(win, 'shx-popin'); setTimeout(() => win.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300); }
+      const win = $('#shx-win'); if (win && win.hidden) { win.hidden = false; yeniden(win, 'shx-popin'); } /* otomatik kaydırma kaldırıldı */
     }, reduced ? 700 : (ilk ? 4800 : 1200));
     ilk = false; clearInterval(zaman); if (!reduced) zaman = setInterval(cevir, 520);
   });
