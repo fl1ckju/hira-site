@@ -1,0 +1,24 @@
+/* mood.css — ara durak (#ch35) ve ölçüm odası (#ch36). Mevcut sinematik dili kullanır: --gold/--pk renkleri, "up" girişi, .btn / .tap düğmeleri. */
+#ch35{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+#ch35:not([hidden])>*{animation:up 1s both}
+#ch35:not([hidden])>:nth-child(2){animation-delay:.12s}#ch35:not([hidden])>:nth-child(3){animation-delay:.26s}
+#ch35:not([hidden])>:nth-child(4){animation-delay:.4s}#ch35:not([hidden])>:nth-child(5){animation-delay:.55s}
+.mood-eyebrow{margin:0 0 .6rem;letter-spacing:.34em;font-size:.72rem;text-transform:uppercase;color:var(--gold)}
+.mood-radar{position:relative;width:min(62vw,250px);aspect-ratio:1;margin:1.6rem auto 1.2rem;border-radius:50%}
+.mood-radar::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 26px,rgba(255,105,171,.28) 26px 27px);box-shadow:0 0 60px rgba(254,79,138,.28),inset 0 0 40px rgba(254,79,138,.18)}
+.mood-radar::after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(254,79,138,.55),rgba(254,79,138,0) 26%);animation:moodsweep 4.2s linear infinite}
+.mood-radar img{position:absolute;left:27%;top:27%;width:46%;height:46%;border-radius:50%;object-fit:cover;border:2px solid var(--pk3,#ff69ab);box-shadow:0 0 24px rgba(254,79,138,.6);z-index:1;max-width:none;filter:saturate(1.02)}
+.mood-radar i{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--pk3,#ff69ab);box-shadow:0 0 12px 3px var(--pk1,#fe4f8a);opacity:0;animation:moodblip 4.2s ease-out infinite}
+.mood-radar i:nth-of-type(1){left:74%;top:20%;animation-delay:.5s}.mood-radar i:nth-of-type(2){left:16%;top:62%;animation-delay:2.1s}.mood-radar i:nth-of-type(3){left:60%;top:82%;animation-delay:3.2s}
+@keyframes moodsweep{to{transform:rotate(360deg)}}
+@keyframes moodblip{0%,100%{opacity:0;transform:scale(.4)}12%{opacity:1;transform:scale(1)}60%{opacity:.1}}
+.mood-go{margin-top:1.4rem;border-color:var(--pk3,#ff69ab);box-shadow:0 0 30px rgba(254,79,138,.35)}
+.mood-go:hover{background:var(--pk3,#ff69ab);color:#2a0d18}
+#ch36{text-align:center;padding-top:clamp(2.5rem,8vh,4rem);padding-bottom:calc(5rem + env(safe-area-inset-bottom))}
+#ch36 .shx{margin:1rem auto 0}
+#ch36 .mood-back{display:block;margin:0 auto}
+#moodBackTop{margin:0 auto 1.2rem 0!important}
+.mood-nav{display:flex;flex-direction:column;align-items:center;gap:.4rem;margin-top:2rem}
+.mood-nav .btn{margin-top:.6rem;border-color:var(--pk3,#ff69ab)}
+.mood-nav .btn:hover{background:var(--pk3,#ff69ab);color:#2a0d18}
+@media (prefers-reduced-motion:reduce){.mood-radar::after,.mood-radar i,#ch35>*{animation:none!important}}
