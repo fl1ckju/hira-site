@@ -1,3 +1,4 @@
+
 /* Bölüm 05 (mektup) ve 06 (ASCII pasta finali). app.js'ten sonra yüklenir; ortak yardımcıları window.__app'ten alır */
 (() => {
 'use strict';
@@ -17,7 +18,7 @@ function mektupAc() {
   setTimeout(() => {
     envHint.hidden = true; env.classList.add('gone'); paper.hidden = false; paper.classList.add('on'); paper.scrollIntoView({ behavior: 'smooth', block: 'center' });
     const r = paper.getBoundingClientRect(); isik(innerWidth / 2, Math.max(80, r.top + 60), '#ffd27a');
-    setTimeout(() => { const b6 = $('#to6'); b6.hidden = false; b6.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 1800 + paper.children.length * 750); /* mektup okunsun, sonra devam (eskiden ~5,5 sn) */
+    setTimeout(() => { const b6 = $('#to6'); b6.hidden = false; }, 1800 + paper.children.length * 750); /* mektup okunsun, sonra devam (eskiden ~5,5 sn) */
   }, 1400);
 }
 env.onclick = mektupAc; envHint.onclick = mektupAc;
@@ -58,7 +59,11 @@ blowBtn.onclick = () => {
   setTimeout(() => FX.burst(innerWidth * .78, innerHeight * .35), yazi ? 2100 : 1100);
   setTimeout(() => isik(innerWidth / 2, innerHeight * .4, '#ffd27a'), yazi ? 900 : 0);
   const bekleme = yazi ? 9000 : 0; /* yazıları izlemeye zaman tanı, sonra fotoğrafa kay */
-  setTimeout(() => { w.classList.add('on'); w.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, bekleme);
+  setTimeout(() => { /* mesaj aşağıda belirir; sayfa kendiliğinden kaymaz, düğmeyle inilir */
+    w.classList.add('on');
+    const gor = make('button', 'tap cont', 'Mesajı gör ↓'); gor.type = 'button'; blowBtn.after(gor);
+    gor.onclick = () => { gor.remove(); w.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+  }, bekleme);
   setTimeout(() => $('#closing').classList.add('on'), bekleme + 6500);
 };
 $('#again').onclick = () => location.reload();
