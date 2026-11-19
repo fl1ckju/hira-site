@@ -1,4 +1,4 @@
-/* shitpost.js (1/3) — ortak yardımcılar · açılış temizliği · köşe animasyonları · Aranıyor · Ruh Hali
+/* shitpost.js (1/3) — ortak yardımcılar · açılış temizliği · köşe animasyonları · Aranıyor
    shitpost2.js ve shitpost3.js bunun yardımcılarını kullanır: önce bu dosya yüklenir. app.js, finale.js ve extra.js'ten SONRA gelir.
    Tüm yazılar aşağıdaki sabitlerde: istediğin gibi düzenle. */
 (() => {
@@ -16,16 +16,6 @@ const BASLA_YAZISI = 'Başla';            /* açılış düğmesi */
 const WANTED_GEREKEN = 2;                /* "Devam et" için eklenmesi gereken yeni suç sayısı */
 
 /* ======================= METİNLER ======================= */
-const MOODS = [
-  ['"Görüldü" atma modu', 97], ['Pasta radarı açık', 100], ['Sabır yükleniyor… (şarj yok)', 12],
-  ['Uyku kapalı, laf açık', 93], ['Sessiz ama kafasında seni yargılıyor', 81], ['"Bunu duymadım" yüzü', 84],
-  ['Kahve olmadan insan değil', 88], ['Kendi kendine gülüyor (şüpheli)', 90], ['Yemek ısmarla krizi', 99], ['Yürüyen yorum satırı', 96]
-];
-/* tetikleyici → [pasta aşkı, sabır, sinir, göz devirme] taban değerleri */
-const TETIK = [['☕', 'Kahve', [70, 40, 75, 60]], ['🍰', 'Pasta', [100, 55, 20, 35]], ['😴', 'Uyku', [40, 25, 85, 90]], ['📱', 'Mesaj', [55, 15, 70, 95]]];
-const METRIK = ['Pasta aşkı', 'Sabır', 'Sinir', 'Göz devirme'];
-const MOOD_YORUM = ['Rapor: Hira bugün de Hira.', 'Doktor: "Normal." Ben: "Hayır."', 'Not: Bu cihaz hatalı çalışmaz, Hira hatalı çalışır.', 'Sonuç mahkemeye sunulabilir.', 'Ölçüm bitti. Cihaz biraz yoruldu.'];
-
 const WCARDS = [
   ['ŞÜPHELİ No. 1', ['Pasta başında en son görüldü.', 'Elinde suç aleti: çatal.', 'İfadesi: "Ben sadece tadına baktım."']],
   ['ŞÜPHELİ No. 2', ['Çok sessiz. Şüphe uyandıracak kadar.', 'Gülüyor. Sebebi bilinmiyor. Korkutucu.', '"Görüldü" atıp kaçarken yakalandı.']],
@@ -154,43 +144,7 @@ function sahneWanted() {
   return s;
 }
 
-/* ======================= 1b) RUH HALİ ÖLÇER: zengin sürüm, bölümün EN SONUNDA (Aranıyor'un altı, "Devam et"in üstü) ======================= */
-function sahneMood() {
-  const wanted = $('#shx-wanted'), to4 = $('#to4'); if (!to4) return;
-  let chips = '', bars = '';
-  TETIK.forEach((t, i) => { chips += '<button type="button" class="shx-chp' + (i === 0 ? ' on' : '') + '" data-i="' + i + '"><span>' + t[0] + '</span>' + t[1] + '</button>'; });
-  METRIK.forEach((m, i) => { bars += '<div class="shx-mrow"><span>' + m + '</span><div class="shx-bar"><i data-m="' + i + '"></i></div><small data-v="' + i + '">–</small></div>'; });
-  const s = blok('shx-mood', 'Hira Ruh Hali Ölçer™', 'Bilimsel değil. Ama yalan da değil. Önce tetikleyiciyi seç, sonra ölç.',
-    '<div class="shx-chips" id="moodChips">' + chips + '</div>' +
-    '<div class="shx-card shx-mcard"><img class="shx-img" alt="">' +
-    '<svg class="shx-gauge" viewBox="0 0 120 70" aria-hidden="true"><path d="M10 62A50 50 0 0 1 110 62" pathLength="100" class="g0"/><path id="moodArc" d="M10 62A50 50 0 0 1 110 62" pathLength="100" class="g1"/><text id="moodNum" x="60" y="58" text-anchor="middle">–</text></svg>' +
-    '<p class="shx-label" id="moodLabel">Henüz ölçülmedi</p><div class="shx-mstats">' + bars + '</div><p class="shx-mnote" id="moodNote"></p></div>' +
-    '<ul class="shx-hist" id="moodHist"></ul><button class="btn" type="button" id="moodBtn">Ölç bakalım</button>');
-  if (wanted) wanted.after(s); else to4.before(s); /* her zaman en sonda: to4'ün hemen üstü */
-  s.addEventListener('pointerdown', e => e.stopPropagation());
-  const img = $('.shx-img', s), lab = $('#moodLabel'), arc = $('#moodArc'), num = $('#moodNum'), note = $('#moodNote'), hist = $('#moodHist'), btn = $('#moodBtn');
-  const sonraki = deste(MOODS), yorum = deste(MOOD_YORUM), cb = $$('.shx-chp', s);
-  let sec = 0; setFoto(img);
-  cb.forEach((b, i) => { b.onclick = () => { sec = i; cb.forEach(x => x.classList.toggle('on', x === b)); vib(8); }; });
-  const ayarla = (pct, deg) => { arc.style.strokeDasharray = pct + ' 100'; num.textContent = pct === 0 ? '–' : '%' + pct; $$('.shx-mrow i', s).forEach((el, i) => { el.style.width = (deg ? deg[i] : 0) + '%'; $('small[data-v="' + i + '"]', s).textContent = deg ? '%' + deg[i] : '–'; }); };
-  ayarla(0, null);
-  btn.onclick = () => {
-    if (btn.disabled) return; btn.disabled = true; vib([12, 40, 12]);
-    lab.textContent = 'Ölçülüyor…'; note.textContent = ''; ayarla(0, null);
-    let t = 0; const iv = setInterval(() => {
-      setFoto(img); arc.style.strokeDasharray = Math.round(rnd(10, 95)) + ' 100';
-      if (++t >= (reduced ? 1 : 9)) {
-        clearInterval(iv); const m = sonraki();
-        const deg = TETIK[sec][2].map(v => Math.max(3, Math.min(100, Math.round(v + rnd(-14, 14)))));
-        lab.textContent = m[0]; yeniden(lab, 'shx-flash'); ayarla(m[1], deg); note.textContent = yorum();
-        const li = make('li', '', TETIK[sec][0] + ' %' + m[1]); hist.prepend(li); while (hist.children.length > 4) hist.lastChild.remove();
-        btn.disabled = false; btn.textContent = 'Tekrar ölç'; vib(30); sayac.art(1);
-      }
-    }, 130);
-  };
-}
-
 /* ======================= Başlat ======================= */
-[sahneGiris, sahneOrtam, sahneWanted, sahneMood].forEach(guvenli);
+[sahneGiris, sahneOrtam, sahneWanted].forEach(guvenli);
 (window.__ok = window.__ok || []).push('shitpost');
 })();
