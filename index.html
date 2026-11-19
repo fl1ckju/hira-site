@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="extra.css?v=22">
 <link rel="stylesheet" href="shitpost.css?v=22">
 <link rel="stylesheet" href="shitpost2.css?v=22">
+<link rel="stylesheet" href="mood.css?v=23">
 <link rel="stylesheet" href="tema.css?v=22">
 </head>
 <body class="locked">
@@ -66,6 +67,22 @@
     </section>
     <section id="ch3"><h2>Küçük Anlar</h2><p class="holdhint" id="holdhint">Ekrana basılı tut · yavaşça aksın</p><div id="gallery"></div>
       <button class="tap cont" id="to4" type="button">Devam et →</button>
+    </section>
+    <section id="ch35" hidden>
+      <p class="mood-eyebrow">Bir sonraki durak</p>
+      <h2 tabindex="-1">Ruh Hali Laboratuvarı</h2>
+      <div class="mood-radar" aria-hidden="true"><img id="moodPhoto" alt=""><i></i><i></i><i></i></div>
+      <p class="sub">Aranıyor dosyası kapandı. Şimdi sıra şüphelinin ruh hâlinde.</p>
+      <button class="btn mood-go" id="to36" type="button">Ölçüme geç →</button>
+    </section>
+    <section id="ch36" hidden>
+      <button class="tap mood-back" id="moodBackTop" type="button">← Ara durağa dön</button>
+      <h2 tabindex="-1">Ölçüm Odası</h2>
+      <div id="moodHost"></div>
+      <div class="mood-nav">
+        <button class="tap mood-back" id="moodBackBot" type="button">← Geri dön</button>
+        <button class="btn" id="to4m" type="button" hidden>Devam et →</button>
+      </div>
     </section>
     <section id="ch4" hidden><h2 tabindex="-1">Bilmeni İstediklerim</h2>
       <div id="sky">
@@ -137,8 +154,9 @@
 <script src="shitpost.js?v=22"></script>
 <script src="shitpost2.js?v=22"></script>
 <script src="shitpost3.js?v=22"></script>
+<script src="mood.js?v=23"></script>
 <script>/* Eksik ya da yarım kalmış dosya varsa açılış ekranında hangisi olduğunu yazar */
-setTimeout(function(){var ok=window.__ok||[],miss=["cakea","cakeb","cakec","app","finale","extra","shitpost","shitpost2","shitpost3"].filter(function(n){return ok.indexOf(n)<0});
+setTimeout(function(){var ok=window.__ok||[],miss=["cakea","cakeb","cakec","app","finale","extra","shitpost","shitpost2","shitpost3","mood"].filter(function(n){return ok.indexOf(n)<0});
 if(miss.length){var h=document.getElementById("hint");h.hidden=false;h.textContent="Eksik ya da yarım dosya: "+miss.join(".js, ")+".js";if(window.__errs&&window.__errs.length)h.textContent+="  ["+window.__errs[0]+"]";}},2500);</script>
 </body>
 </html>
