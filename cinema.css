@@ -1,0 +1,67 @@
+/* cinema.css — son yüklenen stil dosyası (style.css ve extra.css'ten sonra).
+   Yalnızca ana hikâyenin sinematik cilası: palet, sade kontroller, mektup, final. Kod mantığına dokunmaz. */
+
+/* ---------- Palet: gece laciverti + koyu erik, soluk gül, şampanya altını ---------- */
+:root{--navy:#0b1026;--navy2:#1a1533;--gold:#d8c08f;--amber:#d8b27a;--rose:#c99aa6;--ivory:#f6ecdf;--beige:#d9c7b8}
+body{background-image:
+  radial-gradient(60% 40% at 12% 2%,rgba(110,40,90,.30),transparent 72%),
+  radial-gradient(55% 40% at 98% 22%,rgba(201,154,166,.14),transparent 72%),
+  radial-gradient(120% 70% at 50% 0,#1a1533,#0b1026 64%)}
+.grain{opacity:.07}
+
+/* ---------- Kontroller: filmin diline uyan, ince metin düğmeleri ---------- */
+.tap{font-size:.72rem;letter-spacing:.3em;opacity:.8}
+#next{opacity:.6}
+#counter{display:none} /* kare sayacı gerekmiyor; şerit noktaları yeter */
+.cont{margin-top:2.4rem}
+.bonus-link{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--beige);opacity:.6;text-decoration:none;border-bottom:1px solid #d8c08f55;padding-bottom:2px}
+.bonus-link:hover{opacity:1}
+
+/* ---------- 03 Küçük Anlar: farklı boy ve nefes alan boşluk ---------- */
+#gallery{gap:clamp(2.4rem,10vh,4.4rem)}
+#gallery .pol:nth-child(3n+1){width:min(82%,360px)}
+#gallery .pol:nth-child(3n+2){width:min(56%,240px)}
+#gallery .pol:nth-child(3n){width:min(68%,300px)}
+
+/* ---------- 04 Mesajlar: karanlığa yansıyan el yazısı parçaları ---------- */
+#ch4 .note{min-height:10rem;max-width:26ch;margin-top:1.8rem}
+#ch4 .n1{font-family:var(--hand);font-size:1.5rem;font-style:normal;line-height:1.5;text-shadow:0 0 26px #d8c08f55}
+#ch4 .n2{font-size:1.05rem;letter-spacing:.08em}
+
+/* ---------- 05 Film makarası: kare numarası yok ---------- */
+.cell .fn{display:none}
+
+/* ---------- 06 Karanlık oda: sakin arşiv, üst üste binme yok ---------- */
+#ch46 .fp{width:calc(78% / var(--c,3))}
+#ch46 .fpi{padding:5px 5px 16px}
+
+/* ---------- 07 Mektup: fiziksel kâğıt, doğal açılış ---------- */
+.paper{background:
+  radial-gradient(120% 80% at 20% 0,rgba(255,255,255,.55),transparent 60%),
+  repeating-linear-gradient(0deg,rgba(120,90,60,.035) 0 1px,transparent 1px 3px),
+  linear-gradient(#f8f1e3,#eadfc6);
+  box-shadow:0 2px 0 #fff8 inset,0 30px 70px #000c,0 6px 18px #0006;transform-origin:50% 0}
+.paper.on{animation:unfold 2s cubic-bezier(.22,1,.36,1) both}
+@keyframes unfold{from{opacity:0;transform:perspective(900px) rotateX(-62deg) translateY(26px) scaleY(.7)}to{opacity:1;transform:none}}
+.env{box-shadow:0 24px 60px #000b,0 2px 0 #fff6 inset}
+
+/* ---------- 08 Final: pasta tek başına, koyu zeminde yumuşak spot ışığı ---------- */
+#ch6 .deco,#ch6 .sp,.stage .sp{display:none}
+body.finalde .vf,body.finalde .bokeh{display:none}
+body.finalde .leak{opacity:.25}
+#ch6 .stage::before{background:radial-gradient(46% 46% at 50% 56%,rgba(255,214,160,.30),rgba(216,178,122,.12) 50%,transparent 76%)}
+#ch6 h2{opacity:.8;font-size:clamp(1.3rem,5vw,1.8rem);margin-bottom:1rem}
+#blow{background:transparent;border-color:#d8c08f88;font-size:.8rem}
+
+/* dilek ve jenerik: pastanın üstüne yavaşça açılan sabit katman (sayfa kaymaz) */
+#ch6 #wish.on{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:2rem 1.2rem 6.5rem;overflow-y:auto;
+  background:radial-gradient(70% 60% at 50% 42%,rgba(36,24,56,.9),rgba(5,6,16,.97));animation:wishin 2.6s ease both}
+@keyframes wishin{from{opacity:0}to{opacity:1}}
+#ch6 .wish figure{max-width:min(64vw,280px);margin:1.2rem auto 0}
+#ch6 .wish img{max-height:42svh;object-fit:cover}
+#ch6 .closing{position:fixed;left:0;right:0;bottom:calc(1.1rem + env(safe-area-inset-bottom));z-index:31;margin:0;gap:.5rem;pointer-events:none}
+#ch6 .closing.on{pointer-events:auto}
+#ch6 .closing p{font-size:.8rem}
+#ch6 .closing .btn{padding:.35rem 1rem;min-height:0;border:0;font-size:.7rem;opacity:.75;background:none}
+#ch6 .closing .btn:hover{background:none;color:var(--ivory);opacity:1}
