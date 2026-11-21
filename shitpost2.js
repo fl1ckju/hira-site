@@ -8,7 +8,8 @@ const { A, $, $$, make, vib, reduced, FX, rnd, yeniden, guvenli, deste, sonrakiF
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v)), pad3 = n => String(n).padStart(3, '0');
 
 /* ======================= AYARLAR ======================= */
-const VIDEO_SRC = 'video.mp4';        /* repo kökündeki video (H.264 + AAC .mp4) */
+/* ASIL HATA: dosya repoda video/video.mp4 yolunda duruyor, kod ise kökteki 'video.mp4'ü arıyordu (404 → "oynatılamadı"). Yol düzeltildi. */
+const VIDEO_SRC = 'video/video.mp4';   /* H.264 + AAC .mp4 */
 const MUZIK_MODU = 'dokunma';         /* 'dokunma' = video müziğe ASLA dokunmaz · 'sustur' = video sesliyken müzik duraklar, sonra devam eder */
 
 /* baskı arttıkça şiddetlenen Darla: [eşik, seviye adı, düğme yazısı, seviye atlayınca çıkan not] */
@@ -187,9 +188,17 @@ function sahneVideo() {
     if (vid.videoWidth && vid.videoHeight) { wrap.style.aspectRatio = vid.videoWidth + ' / ' + vid.videoHeight; wrap.classList.toggle('dikey', vid.videoHeight > vid.videoWidth); }
   });
   vid.addEventListener('canplay', () => { load.hidden = true; note.hidden = true; });
+  /* hata nedenini gerçekten ayırt et: dosya yok mu, ağ mı kesik, biçim mi desteklenmiyor? */
   vid.addEventListener('error', () => {
     const k = vid.error ? vid.error.code : 0;
-    hata(k === 4 ? VIDEO_SRC + ' oynatılamadı: dosya yok ya da biçim desteklenmiyor (H.264 + AAC .mp4 olmalı).' : VIDEO_SRC + ' yüklenirken hata oluştu.');
+    clearTimeout(bekci);
+    if (k === 2) { hata('Video indirilirken bağlantı koptu. İnternetini kontrol edip tekrar dene.'); return; }
+    if (k === 3) { hata('Video dosyası bu tarayıcıda çözülemedi. Tarayıcını güncelleyip tekrar dene.'); return; }
+    fetch(VIDEO_SRC, { method: 'HEAD', cache: 'no-store' }).then(r => {
+      if (r.status === 404) hata('Video dosyası bulunamadı (' + VIDEO_SRC + '). Dosya siteye yüklenmemiş olabilir.');
+      else if (!r.ok) hata('Video sunucudan alınamadı (hata kodu ' + r.status + '). Biraz sonra tekrar dene.');
+      else hata('Video bu cihazda oynatılamıyor. Biçim H.264 + AAC .mp4 olmalı; tarayıcını güncelleyip tekrar dene.');
+    }).catch(() => hata('Video yüklenemedi. İnternet bağlantını kontrol edip tekrar dene.'));
   });
   retry.onclick = () => { deneme++; kur(); };
 
