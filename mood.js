@@ -95,7 +95,8 @@ guvenli(() => {
   const gezinme = sahneGezinme();
   if (!gezinme) return; /* kurulamadıysa mood sayfası hiç açılmaz; eski akış sürer */
   sahneAraDurak();
-  sahneMood(() => { if (devam && devam.hidden) { devam.hidden = false; yeniden(devam, 'shx-popin'); setTimeout(() => devam.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400); } });
+  /* Yeni HİRA LABORATUVARI yüklüyse o çalışır; yüklenmediyse eski ölçer aynen sürer */
+  (window.__lab ? (cb => window.__lab.kur($('#moodHost'), cb)) : sahneMood)(() => { if (devam && devam.hidden) { devam.hidden = false; yeniden(devam, 'shx-popin'); setTimeout(() => devam.scrollIntoView({ behavior: 'smooth', block: 'center' }), 400); } });
 });
 (window.__ok = window.__ok || []).push('mood');
 })();
